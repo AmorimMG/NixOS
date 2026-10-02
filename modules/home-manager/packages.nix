@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    software-library
     # Terminal & CLI
     btop
     fastfetch

@@ -88,6 +88,8 @@
           "Downloads"
           "Documents"
           "Pictures"
+          "Videos/ResolveDrop"
+          "Videos/ResolveIngest"
           ".config"
           ".local/share"
           ".local/state/mimocode"

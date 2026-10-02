@@ -52,6 +52,7 @@
       key "Super + Return / T"  "Terminal (Ghostty)"
       key "Ctrl + Alt + T"      "Terminal (Ghostty)"
       key "Super + Space"       "App launcher (Caelestia)"
+      key "Super + A"           "Software Library (apps and CLI tools)"
       key "Super + E"           "File manager (Dolphin)"
       key "Super + I"           "Antigravity AI assistant"
 

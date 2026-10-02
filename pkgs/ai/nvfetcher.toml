@@ -10,9 +10,8 @@ fetch.url = "https://registry.npmjs.org/@cline/cli-linux-x64/-/cli-linux-x64-$ve
 src.cmd = "curl -fsSL https://app.factory.ai/cli | grep -m1 '^VER=' | cut -d'\"' -f2"
 fetch.url = "https://downloads.factory.ai/factory-cli/releases/$ver/linux/x64/droid"
 
-# Newest tag that still ships a junie-release-* asset; everything above is nightly.
 [junie]
-src.manual = "3110.6"
+src.cmd = "command curl -fsSL https://raw.githubusercontent.com/jetbrains-junie/junie/main/update-info.jsonl | jq -ers 'map(select(.platform == \"linux-amd64\")) | max_by(.version | split(\".\") | map(tonumber)) | .version'"
 fetch.url = "https://github.com/JetBrains/junie/releases/download/$ver/junie-release-$ver-linux-amd64.zip"
 
 [kimi-code]

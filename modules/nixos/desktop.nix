@@ -27,6 +27,7 @@ in {
   # services.displayManager.enable and not just xserver.enable, and it still
   # reads services.xserver.xkb below.
   services.xserver.enable = false;
+  i18n.inputMethod.ibus.waylandFrontend = true;
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;

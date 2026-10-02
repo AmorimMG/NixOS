@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   enumVariant = variant: {
     __type = "enum";
     inherit variant;
@@ -221,6 +225,14 @@ in {
 
     shortcuts =
       [
+        {
+          key = "Super+A";
+          action = spawn "${pkgs.software-library}/bin/software-library";
+        }
+        {
+          key = "Super+Ctrl+A";
+          action = systemAction "AppLibrary";
+        }
         {
           key = "Super+Return";
           action = spawn "ghostty";

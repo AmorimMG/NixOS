@@ -73,6 +73,7 @@ in {
     };
 
     "org/gnome/shell/keybindings" = {
+      toggle-application-view = ["<Super><Control>a"];
       show-screenshot-ui = ["Print" "<Super><Shift>s"];
       screenshot = [];
       switch-to-application-1 = [];
@@ -101,6 +102,7 @@ in {
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/software-library/"
       ];
     };
 
@@ -108,6 +110,12 @@ in {
       name = "Terminal";
       command = "ghostty";
       binding = "<Super>Return";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/software-library" = {
+      name = "Software Library";
+      command = "${pkgs.software-library}/bin/software-library";
+      binding = "<Super>a";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {

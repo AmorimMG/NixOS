@@ -5,6 +5,7 @@
   pkgs,
   ...
 }: let
+  ibusEnabled = osConfig.i18n.inputMethod.enable && osConfig.i18n.inputMethod.type == "ibus";
   # Mirrors the Plasma visualizer's config in plasma-settings.nix, on every
   # monitor and just below the clock. Only defaults: changes made in the
   # widget's own settings are stored separately and win.
@@ -16,6 +17,16 @@
     numBars = 32;
   });
 in {
+  xdg.configFile."autostart/ibus-daemon.desktop" = lib.mkIf ibusEnabled {
+    text = ''
+      [Desktop Entry]
+      Name=IBus
+      Type=Application
+      Exec=${osConfig.i18n.inputMethod.package}/bin/ibus-daemon --daemonize --xim ${lib.optionalString (osConfig.i18n.inputMethod.ibus.panel != null) "--panel=${osConfig.i18n.inputMethod.ibus.panel}"}
+      NotShowIn=GNOME;KDE;Hyprland;
+    '';
+  };
+
   # Hyprland frontend of the AI usage widget; ships the org.quickshell desktop
   # entry the portal daemon needs to resolve the shell's windows.
   home.packages = [
@@ -136,6 +147,7 @@ in {
           "${pkgs.gitpulse-hyprland}/bin/gitpulse-hyprland"
           "env NIXPKGS_QT6_QML_IMPORT_PATH=${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml ${pkgs.nixdatifier-hyprland}/bin/nixdatifier-hyprland"
         ]
+        ++ lib.optional ibusEnabled "${osConfig.i18n.inputMethod.package}/bin/ibus start --type wayland"
         # Same desktop widgets as the Plasma session (plasma-settings.nix).
         # Caelestia's own desktop clock is switched off in caelestia.nix while
         # this one runs.
@@ -274,6 +286,7 @@ in {
         "$mod SHIFT, V, exec, $clipboard"
         "$mod ALT, V, exec, $clipboardClear"
         "$mod, Space, exec, $menu"
+        "$mod, A, exec, ${lib.getExe pkgs.software-library}"
         "$mod, P, pseudo"
         "$mod, J, layoutmsg, togglesplit"
         "$mod, G, togglegroup"

@@ -53,11 +53,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kjzEdEBbQ4SR+yrGLoyk6sPkRYpfpDjWh8HMPaiF+BM=",
+            "sha256": "sha256-yYt3MDYEbRdubmUPdFqqjq8LHtC99OeumWUR00GhLig=",
             "type": "url",
-            "url": "https://github.com/JetBrains/junie/releases/download/3110.6/junie-release-3110.6-linux-amd64.zip"
+            "url": "https://github.com/JetBrains/junie/releases/download/3419.22/junie-release-3419.22-linux-amd64.zip"
         },
-        "version": "3110.6"
+        "version": "3419.22"
     },
     "kimi-code": {
         "cargoLock": null,

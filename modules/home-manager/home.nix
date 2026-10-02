@@ -152,6 +152,7 @@
   imports =
     [
       ./packages.nix
+      ./software-library.nix
       ./widgets.nix
       ./theme.nix
       ./shell.nix

@@ -442,6 +442,8 @@ in {
       };
       # Disable default Activities shortcut to free up Meta+Q
       plasmashell."manage activities" = "none";
+      plasmashell."next activity" = "Meta+Alt+A";
+      plasmashell."previous activity" = "Meta+Alt+Shift+A";
       plasmashell."activate application launcher" = "none";
       plasmashell."activate task manager entry 1" = "none";
       plasmashell."activate task manager entry 2" = "none";
@@ -459,6 +461,7 @@ in {
       # [ModifierOnlyShortcuts] block is ignored). Tapping Meta alone toggles
       # KRunner; Meta+<key> combos are unaffected. Log out/in to (re)arm.
       "services/org.kde.krunner.desktop"._launch = ["Meta+Space" "Search" "Meta"];
+      "services/software-library.desktop"._launch = "Meta+A";
       "services/org.kde.systemmonitor.desktop"._launch = "none";
       "caelestia-monitor.desktop"."_launch" = "Ctrl+Shift+Esc";
       "dolphin-open-vscode.desktop"."_launch" = "Ctrl+Alt+V";

@@ -68,6 +68,8 @@ in {
   # APPS - Custom applications
   # ═══════════════════════════════════════════════════════════════════════════
   portmaster = final.callPackage ./apps/portmaster.nix {};
+  drwrap = final.callPackage ./drwrap.nix {};
+  software-library = final.callPackage ./software-library.nix {};
   guitar-pro = final.callPackage ./apps/guitar-pro.nix {};
   whatsapp = final.callPackage ./apps/whatsapp.nix {};
   stirling-pdf-ui = final.callPackage ./apps/stirling-pdf.nix {};

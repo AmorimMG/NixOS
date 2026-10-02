@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  imports = [../../modules/home-manager/resolve.nix];
+
   ai.agents = [
     "claude-code"
     "cline"
@@ -7,6 +9,7 @@
     "github-copilot-cli"
     "google-antigravity-cli"
     "grok-build"
+    "junie"
     "kiro-cli"
     "mistral-vibe"
     "opencode"
@@ -110,7 +113,7 @@
     clock-rs
     termdown
     keepassxc
-    bitwarden-desktop
+    # bitwarden-desktop
     veracrypt
 
     # Audio & music
@@ -128,6 +131,7 @@
     gnome-frog
     curtail
     davinci-resolve
+    drwrap
     mediainfo
 
     # Editors & IDEs
