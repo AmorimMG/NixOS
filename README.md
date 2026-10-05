@@ -368,9 +368,21 @@ gcnix         # garbage collect (keeps last 5 generations)
 | `Super + Q` | Close window |
 | `Super + F` | Fullscreen |
 | `Super + Shift + S` | Screenshot (region) |
+| `Alt + Print` | Start or stop screen recording |
+| `Super + Ctrl + R` | Start or stop screen recording |
+| `Super + Ctrl + Print` | Copy text from a screen region |
+| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + Ctrl + C` | Capture menu |
+| `Super + Ctrl + .` | Transcode media |
+| `Super + Shift + V` | Clipboard history |
+| `F9` / `Super + Ctrl + X` | Hold to dictate / toggle dictation |
+| `Super + Alt + P` | Pin floating window across workspaces |
+| `Super + H` | Search current shortcuts |
 | `Super + 1-9` | Switch workspace |
 | `Super + Shift + 1-9` | Move window to workspace |
 | `Super + −` | Toggle special workspace |
+
+Caelestia's Utilities panel shows the **Keep awake** card.
 
 </details>
 
@@ -400,8 +412,18 @@ gcnix         # garbage collect (keeps last 5 generations)
 | `Ctrl + Alt + A` | Terminal (Konsole) |
 | `Ctrl + Shift + Esc` | System monitor |
 | `Print` / `Meta + Shift + S` | Screenshot (full / region) |
+| `Meta + Shift + V` | Clipboard history |
+| `Meta + Ctrl + X` | Toggle dictation |
+| `Meta + Ctrl + C` | Capture menu |
+| `Meta + Ctrl + R` | Start or stop screen recording |
+| `Meta + Ctrl + Print` | Copy text from a screen region |
+| `Meta + Alt + Print` | Copy a QR code from a screen region |
+| `Meta + Alt + P` | Keep active window on all desktops |
+| `Meta + H` | Open keyboard shortcut settings |
 
 > **Note:** Some shortcuts are powered by KWin scripts (`move-follow`, `toggle-bottom-panel`), and the `Meta`-tap is a real modifier-only global shortcut — a bare `Meta` key added to KRunner's launch binding. Plasma 6.1+ handles lone modifiers via kglobalaccel, **not** the old `kwinrc [ModifierOnlyShortcuts]` block (that is silently ignored now). After editing these in [`plasma-settings.nix`](modules/home-manager/plasma-settings.nix), **log out and back in** for the keyboard bindings to take effect.
+
+The visible battery icon in the system tray has Plasma's **Manually block sleep and screen locking** switch.
 
 </details>
 
@@ -424,6 +446,14 @@ gcnix         # garbage collect (keeps last 5 generations)
 | `Super + L` | Lock session |
 | `Ctrl + Alt + Delete` | Log out |
 | `Print` / `Super + Shift + S` | Screenshot |
+| `Super + Shift + V` | Clipboard history |
+| `Super + Ctrl + X` | Toggle dictation |
+| `Super + Ctrl + C` | Capture menu |
+| `Super + Ctrl + R` | Start or stop screen recording |
+| `Super + Ctrl + Print` | Copy text from a screen region |
+| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + H` | Open keyboard shortcut settings |
+| `Super + Alt + P` | Pin active window across workspaces |
 
 Configured declaratively via [`cosmic-manager`](https://github.com/HeitorAugustoLN/cosmic-manager) in [`modules/home-manager/cosmic.nix`](modules/home-manager/cosmic.nix).
 
@@ -443,6 +473,14 @@ Configured declaratively via [`cosmic-manager`](https://github.com/HeitorAugusto
 | `Super + L` | Lock session |
 | `Print` | Screenshot (native GNOME screenshot UI) |
 | `Super + Shift + S` | Screenshot |
+| `Super + Shift + V` | Clipboard history |
+| `Super + Ctrl + X` | Toggle dictation |
+| `Super + Ctrl + C` | Capture menu |
+| `Super + Ctrl + R` | Start or stop screen recording |
+| `Super + Ctrl + Print` | Copy text from a screen region |
+| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + H` | Open keyboard shortcut settings |
+| `Super + Alt + P` | Pin active window across workspaces |
 
 Configured via `dconf.settings` in [`modules/home-manager/gnome.nix`](modules/home-manager/gnome.nix). Workspaces are pinned to a static 10 (`dynamic-workspaces = false`) to match Hyprland/COSMIC instead of GNOME's default dynamic workspace behavior.
 

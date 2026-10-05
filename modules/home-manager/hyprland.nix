@@ -44,11 +44,6 @@ in {
     disable-notifications = true
   '';
 
-  # Klipper equivalent for Hyprland. The two `wl-paste --watch cliphist store`
-  # lines in exec-once were already recording every copy, but nothing ever read
-  # the database back — this is the missing front end. fuzzel is the picker
-  # (wayland-native, dmenu mode); it doubles as a fallback launcher when the
-  # caelestia shell is not running.
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -101,18 +96,6 @@ in {
       "$terminal" = "ghostty";
       "$fileManager" = "dolphin";
       "$menu" = "caelestia shell drawers toggle launcher";
-      # cliphist stores raw entries as "<id>\t<preview>"; decode turns the
-      # selected line back into the original payload (images included).
-      "$clipboard" = toString (pkgs.writeShellScript "clipboard-picker" ''
-        pkill fuzzel && exit 0
-        cliphist list \
-          | fuzzel --dmenu --prompt "clip> " --width 90 --lines 16 \
-          | cliphist decode \
-          | wl-copy
-      '');
-      "$clipboardClear" = toString (pkgs.writeShellScript "clipboard-clear" ''
-        cliphist wipe && notify-send "Clipboard" "History cleared"
-      '');
       # Snip into satty editor: annotate/crop, Ctrl+C copies, Ctrl+S saves, Esc discards
       "$screenshotEdit" = toString (pkgs.writeShellScript "screenshot-edit" ''
         mkdir -p "$HOME/Pictures/Screenshots"
@@ -132,13 +115,6 @@ in {
           "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
           "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
-          # Wayland has no clipboard manager in the compositor: the *source*
-          # client owns the data, so closing the app you copied from empties the
-          # clipboard. wl-clip-persist takes ownership of the selection so the
-          # content outlives the process that produced it.
-          "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular"
-          "wl-paste --type text --watch cliphist store"
-          "wl-paste --type image --watch cliphist store"
           "nwg-dock-hyprland -d -p bottom -l overlay -a center -i 48"
           # Needs Kirigami's QML module (StatsSection's tooltip) — caelestia's
           # own systemd service sets this same var; exec-once processes don't
@@ -283,8 +259,7 @@ in {
         "$mod SHIFT, E, exec, loginctl terminate-session $XDG_SESSION_ID"
         "$mod, E, exec, $fileManager"
         "$mod, V, togglefloating"
-        "$mod SHIFT, V, exec, $clipboard"
-        "$mod ALT, V, exec, $clipboardClear"
+        "$mod SHIFT, V, exec, copyq toggle"
         "$mod, Space, exec, $menu"
         "$mod, A, exec, ${lib.getExe pkgs.software-library}"
         "$mod, P, pseudo"
@@ -296,6 +271,7 @@ in {
         "$mod, F, fullscreen, 0"
         "$mod SHIFT, F, fullscreen, 1"
         "$mod, L, global, caelestia:lock"
+        "$mod ALT, P, exec, hyprctl activewindow -j | jq -e '.floating' >/dev/null || hyprctl dispatch togglefloating; hyprctl dispatch pin"
 
         "$mod,Left,movefocus,l"
         "$mod,Right,movefocus,r"
@@ -333,10 +309,19 @@ in {
         "SHIFT, Print, exec, pkill slurp || true; $screenshotEdit window"
         "CTRL, Print, exec, pkill slurp || true; hyprshot -m output -o ~/Pictures/Screenshots"
         "$mod SHIFT, S, exec, pkill slurp || true; $screenshotEdit region"
+        "ALT, Print, exec, desktop-capture record"
+        "$mod CTRL, R, exec, desktop-capture record"
+        "$mod, Print, exec, hyprpicker -a"
+        "$mod CTRL, Print, exec, desktop-capture ocr"
+        "$mod ALT, Print, exec, desktop-capture qr"
+        "$mod CTRL, C, exec, desktop-capture menu"
+        "$mod CTRL, period, exec, media-transcode"
+        "$mod CTRL, X, exec, voxtype record toggle"
+        ", F9, exec, voxtype record start"
         "$mod, T, exec, $terminal"
         "CTRL ALT, T, exec, dolphin-open-terminal"
         "CTRL ALT, V, exec, dolphin-open-vscode"
-        "$mod, H, exec, bash -c 'hyprctl clients | grep -q hypr-cheatsheet && hyprctl dispatch closewindow class:hypr-cheatsheet || ghostty --class=hypr-cheatsheet -e hypr-cheatsheet'"
+        "$mod, H, exec, desktop-shortcuts"
         "$mod, S, exec, caelestia shell drawers toggle sidebar"
         "$mod, I, exec, bash -c 'hyprctl clients | grep -q intelligence-center && hyprctl dispatch closewindow class:intelligence-center || ghostty --class=intelligence-center -e antigravity'"
         "$mod, C, exec, caelestia shell drawers toggle dashboard"
@@ -364,6 +349,7 @@ in {
 
       bindr = [
         "SUPER, SUPER_L, exec, $menu"
+        ", F9, exec, voxtype record stop"
       ];
 
       bindel = [

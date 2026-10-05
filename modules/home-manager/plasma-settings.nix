@@ -17,6 +17,8 @@
   };
   shiftedDigits = shiftedNumberRows.${osConfig.keyboardLayout} or shiftedNumberRows.us;
 
+  audioLook = import ./audio-visualizer-look.nix;
+
   desktopWidgets =
     (lib.optional cfg.modernClock.enable {
       name = "com.github.prayag2.modernclock";
@@ -32,20 +34,6 @@
       size = {
         width = 640;
         height = 256;
-      };
-    })
-    ++ (lib.optional cfg.plasmaAudioVisualizer.enable {
-      name = "org.muddyblack.plasmaAudioVisualizer";
-      config.General.framerate = "60";
-      config.General.progressBarStyle = "4";
-      config.General.numBars = "32";
-      position = {
-        horizontal = 790;
-        vertical = 544;
-      };
-      size = {
-        width = 360;
-        height = 84;
       };
     })
     ++ (lib.optionals cfg.glassySystemMonitor.enable [
@@ -159,19 +147,26 @@
           };
         }
         "org.kde.plasma.panelspacer"
-        {
-          name = "org.kde.plasma.digitalclock";
-          config.Appearance = {
-            dateFormat = "custom";
-            customDateFormat = "ddd d MMM";
-            showDate = "true";
-            showSeconds = "never";
-            use24hFormat = "2";
-            selectedTimeZone = "Local";
-          };
-        }
-        "org.kde.plasma.panelspacer"
       ]
+      ++ (lib.optional cfg.plasmaAudioVisualizer.enable {
+        name = "org.muddyblack.plasmaAudioVisualizer";
+        config.General = {
+          appleTrackInfo = "true";
+          onlineTrackInfo = "true";
+          popupAppearance = builtins.toJSON audioLook;
+          # Compact pill in the panel: round art, progress bar, scrolling title.
+          panelAppearance = builtins.toJSON (audioLook
+            // {
+              layoutMode = "pill";
+              pillProgress = "bar";
+              progressBarStyle = 6;
+              artShape = "circle";
+              marquee = true;
+              hoverDetails = "off";
+            });
+        };
+      })
+      ++ ["org.kde.plasma.panelspacer"]
       ++ (lib.optional cfg.weather.enable {
         name = "org.kde.plasma.advanced-weather-widget";
         config.General = {
@@ -197,6 +192,13 @@
           autoRefresh = "true";
           autoDetectLocation = "false";
           tooltipEnabled = "false";
+          alertNotificationsEnabled = "false";
+          notificationTodayEnabled = "false";
+          notificationTomorrowEnabled = "false";
+          notificationRainEnabled = "false";
+          notificationSnowEnabled = "false";
+          notificationUvEnabled = "false";
+          notificationSpaceWeatherEnabled = "false";
         };
       })
       ++ (lib.optional cfg.aiUsage.enable {
@@ -210,9 +212,6 @@
           popupBgOpacity = "0.4";
           cardBgOpacity = "0.1";
         };
-      })
-      ++ (lib.optional cfg.tagesschau.enable {
-        name = "org.muddyblack.tagesschauWidget";
       })
       ++ (lib.optional cfg.glassySystemMonitor.enable {
         name = "org.muddyblack.glassySystemMonitor";
@@ -262,6 +261,9 @@
         name = "org.muddyblack.gitpulse";
         config.General.useGhCli = "true";
       })
+      ++ (lib.optional cfg.tagesschau.enable {
+        name = "org.muddyblack.tagesschauWidget";
+      })
       ++ [
         {
           systemTray = {
@@ -275,19 +277,29 @@
                   "org.kde.plasma.notifications"
                   "org.kde.plasma.volume"
                   "org.kde.plasma.bluetooth"
-                  "org.kde.plasma.brightness"
                   "org.kde.plasma.networkmanagement"
                 ]
                 ++ (lib.optional cfg.powerchart.enable "org.kde.plasma.batterymonitor-boero");
               hidden = [
                 "org.kde.plasma.battery"
-                "org.kde.plasma.weather"
+                "org.kde.plasma.brightness"
                 "org.kde.plasma.clipboard"
-                "org.kde.plasma.mediacontroller"
                 "org.kde.plasma.devicenotifier"
                 "org.kde.plasma.keyboardlayout"
+                "org.kde.plasma.mediacontroller"
               ];
             };
+          };
+        }
+        {
+          name = "org.kde.plasma.digitalclock";
+          config.Appearance = {
+            dateFormat = "custom";
+            customDateFormat = "ddd d MMM";
+            showDate = "true";
+            showSeconds = "never";
+            use24hFormat = "2";
+            selectedTimeZone = "Local";
           };
         }
       ];
@@ -362,9 +374,9 @@ in {
 
     desktop.widgets = desktopWidgets;
 
-    # Hyprland-style: 5 always-present virtual desktops (Meta+1..5).
+    # Hyprland-style: 3 always-present virtual desktops (Meta+1..3).
     kwin.virtualDesktops = {
-      number = 5;
+      number = 3;
       rows = 1;
     };
 
@@ -401,6 +413,7 @@ in {
         "Window Minimize" = "Meta+PgDown";
         # Hyprland-style fullscreen toggle: covers the panels, unlike Maximize.
         "Window Fullscreen" = "Meta+F";
+        "Window On All Desktops" = "Meta+Alt+P";
         "Window Quick Tile Left" = "Meta+Left";
         "Window Quick Tile Right" = "Meta+Right";
         "Window Quick Tile Top" = "Meta+Up";
@@ -410,12 +423,10 @@ in {
         "Toggle Night Color" = ["Meta+Shift+N"];
         "Cube" = "Meta+C";
 
-        # Hyprland-style desktop switching: Meta+1..5.
+        # Hyprland-style desktop switching: Meta+1..3.
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
         "Switch to Desktop 3" = "Meta+3";
-        "Switch to Desktop 4" = "Meta+4";
-        "Switch to Desktop 5" = "Meta+5";
 
         # KWin-script actions: the scripts (move-follow, toggle-bottom-panel)
         # register the callbacks, but their own registerShortcut() key requests
@@ -436,8 +447,6 @@ in {
         "MoveFollowDesktop1" = "Meta+${builtins.elemAt shiftedDigits 0}";
         "MoveFollowDesktop2" = "Meta+${builtins.elemAt shiftedDigits 1}";
         "MoveFollowDesktop3" = "Meta+${builtins.elemAt shiftedDigits 2}";
-        "MoveFollowDesktop4" = "Meta+${builtins.elemAt shiftedDigits 3}";
-        "MoveFollowDesktop5" = "Meta+${builtins.elemAt shiftedDigits 4}";
         "ToggleBottomPanel" = "Meta+B";
       };
       # Disable default Activities shortcut to free up Meta+Q
@@ -462,6 +471,13 @@ in {
       # KRunner; Meta+<key> combos are unaffected. Log out/in to (re)arm.
       "services/org.kde.krunner.desktop"._launch = ["Meta+Space" "Search" "Meta"];
       "services/software-library.desktop"._launch = "Meta+A";
+      "services/clipboard-history.desktop"._launch = "Meta+Shift+V";
+      "services/dictation-toggle.desktop"._launch = "Meta+Ctrl+X";
+      "services/capture-menu.desktop"._launch = "Meta+Ctrl+C";
+      "services/capture-record.desktop"._launch = "Meta+Ctrl+R";
+      "services/capture-ocr.desktop"._launch = "Meta+Ctrl+Print";
+      "services/capture-qr.desktop"._launch = "Meta+Alt+Print";
+      "services/desktop-shortcuts.desktop"._launch = "Meta+H";
       "services/org.kde.systemmonitor.desktop"._launch = "none";
       "caelestia-monitor.desktop"."_launch" = "Ctrl+Shift+Esc";
       "dolphin-open-vscode.desktop"."_launch" = "Ctrl+Alt+V";
@@ -469,11 +485,13 @@ in {
       "services/org.kde.konsole.desktop"._launch = "Ctrl+Alt+A";
       "services/systemsettings.desktop"._launch = ["Tools" "Meta+I"];
       "services/kcm_kscreen.desktop"._launch = "Meta+P";
+      "services/com.github.finefindus.eyedropper.desktop"._launch = "Meta+Shift+C";
+      "com.github.finefindus.eyedropper".EyedropperColorPick = "none";
       "org.kde.spectacle.desktop" = {
         ActiveWindowScreenShot = "Meta+Print";
         RectangularRegionScreenShot = "Meta+Shift+S";
         FullScreenScreenShot = "Print";
-        WindowUnderCursorScreenShot = "Meta+Ctrl+Print";
+        WindowUnderCursorScreenShot = "none";
         CurrentMonitorScreenShot = "none";
         _launch = "none";
       };
@@ -541,7 +559,7 @@ in {
 
       # Desktop Cube (kdeplasma-addons): toggled with Meta+C, arranges the
       # virtual desktops on the faces of a 3D cube. Manual overlay, not an
-      # automatic replacement for the Meta+1..5 instant desktop switching.
+      # automatic replacement for the Meta+1..3 instant desktop switching.
       kwinrc.Plugins.cubeEnabled = true;
 
       # Night Color
@@ -678,7 +696,7 @@ in {
     // KWin drops the consumed Shift, so Meta+Shift+1 arrives as Meta+"!".
     // German number row ("de" layout) — see the kwin shortcuts block in
     // plasma-settings.nix for the full explanation. Keep both in sync.
-    var followSymbols = ["!", "\"", "§", "$", "%"];
+    var followSymbols = ["!", "\"", "§"];
     function registerForDesktop(n) {
       var key = followSymbols[n - 1];
       registerShortcut(
@@ -705,7 +723,7 @@ in {
         }
       );
     }
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 3; i++) {
       registerForDesktop(i);
     }
   '';
@@ -752,42 +770,50 @@ in {
       Description = "Set RAPL system power source for batterymonitor-boero widget";
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
+      # The widget only exists in Plasma; skip this in e.g. Hyprland sessions.
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=KDE";
     };
     Service = {
       Type = "oneshot";
       ExecStart = toString (pkgs.writeShellScript "powerchart-rapl-config" ''
         qdbus=${pkgs.kdePackages.qttools}/bin/qdbus
+        # Only write (and reload) when the widget is not already set. This
+        # service runs whenever appletsrc changes, and an unconditional write
+        # changes it again, which retriggered the service until systemd gave up.
         script="
           var found = 0;
           panels().concat(desktops()).forEach(function(c) {
             c.widgets().forEach(function(w) {
               if (w.type && w.type.indexOf('batterymonitor-boero') !== -1) {
                 w.currentConfigGroup = ['General'];
-                w.writeConfig('raplSource', 'package');
-                w.reloadConfig();
+                if (w.readConfig('raplSource', 'unset') !== 'package') {
+                  w.writeConfig('raplSource', 'package');
+                  w.reloadConfig();
+                }
                 found += 1;
               }
             });
           });
           print(found);
         "
-        (
-          for i in $(seq 1 120); do
-            "$qdbus" org.kde.plasmashell /PlasmaShell >/dev/null 2>&1 && break
-            sleep 0.5
-          done
-          for i in $(seq 1 30); do
-            out=$("$qdbus" org.kde.plasmashell /PlasmaShell \
-              org.kde.PlasmaShell.evaluateScript "$script" 2>/dev/null || true)
-            case "$out" in
-              [1-9]*) echo "powerchart-rapl-config: applied to $out widget(s)"; exit 0 ;;
-            esac
-            sleep 2
-          done
-          echo "powerchart-rapl-config: widget not found after 60s" >&2
-        ) &
-        disown
+        # Runs in the foreground: systemd stops a finished oneshot service and
+        # kills whatever it left running in the background, so the old
+        # backgrounded loop never got to apply anything.
+        for i in $(seq 1 120); do
+          "$qdbus" org.kde.plasmashell /PlasmaShell >/dev/null 2>&1 && break
+          sleep 0.5
+        done
+        for i in $(seq 1 30); do
+          out=$("$qdbus" org.kde.plasmashell /PlasmaShell \
+            org.kde.PlasmaShell.evaluateScript "$script" 2>/dev/null || true)
+          case "$out" in
+            [1-9]*) echo "powerchart-rapl-config: widget(s) configured: $out"; exit 0 ;;
+          esac
+          sleep 2
+        done
+        echo "powerchart-rapl-config: widget not found after 60s" >&2
       '');
+      TimeoutStartSec = 200;
     };
     Install.WantedBy = ["graphical-session.target"];
   };
@@ -797,6 +823,7 @@ in {
       Description = "Watch appletsrc and re-apply RAPL source for powerchart";
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=KDE";
     };
     Path = {
       PathChanged = "%h/.config/plasma-org.kde.plasma.desktop-appletsrc";

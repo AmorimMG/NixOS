@@ -230,6 +230,38 @@ in {
           action = spawn "${pkgs.software-library}/bin/software-library";
         }
         {
+          key = "Super+Shift+V";
+          action = spawn "${pkgs.copyq}/bin/copyq toggle";
+        }
+        {
+          key = "Super+Ctrl+X";
+          action = spawn "${pkgs.voxtype}/bin/voxtype record toggle";
+        }
+        {
+          key = "Super+Ctrl+C";
+          action = spawn "desktop-capture menu";
+        }
+        {
+          key = "Super+Ctrl+R";
+          action = spawn "desktop-capture record";
+        }
+        {
+          key = "Super+Ctrl+Print";
+          action = spawn "desktop-capture ocr";
+        }
+        {
+          key = "Super+Alt+Print";
+          action = spawn "desktop-capture qr";
+        }
+        {
+          key = "Super+H";
+          action = spawn "desktop-shortcuts";
+        }
+        {
+          key = "Super+Alt+P";
+          action = enumVariant "ToggleSticky";
+        }
+        {
           key = "Super+Ctrl+A";
           action = systemAction "AppLibrary";
         }

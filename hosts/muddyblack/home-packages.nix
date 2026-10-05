@@ -18,6 +18,9 @@
   home.packages = with pkgs; [
     # Media & Desktop
     freetube
+    localsend
+    pinta
+    kdePackages.kdenlive
 
     # Development & API tools
     # bruno

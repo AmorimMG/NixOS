@@ -152,6 +152,7 @@
                   (unstablePkgs)
                   caelestia-cli
                   caelestia-shell
+                  copyq
                   tailscale
                   typst
                   typstyle

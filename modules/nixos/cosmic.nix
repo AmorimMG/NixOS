@@ -6,6 +6,7 @@
 }:
 lib.mkIf config.features.desktops.cosmic.enable {
   services.desktopManager.cosmic.enable = true;
+  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = "1";
 
   # We use ghostty/dolphin instead of COSMIC's own apps; drop the ones the
   # module doesn't consider core (cosmic-files stays — it's required by

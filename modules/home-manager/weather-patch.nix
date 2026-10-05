@@ -7,6 +7,7 @@
   cfg = config.desktop.widgets;
   qdbus = "${pkgs.kdePackages.qttools}/bin/qdbus";
   kwrite = "${pkgs.kdePackages.kconfig}/bin/kwriteconfig6";
+  kread = "${pkgs.kdePackages.kconfig}/bin/kreadconfig6";
 
   patchScript = pkgs.writeShellScript "patch-weather-location" ''
     set -uo pipefail
@@ -58,7 +59,10 @@
       exit 1
     fi
 
+    notification_enabled=true
+    changed=0
     for section in "''${sections[@]}"; do
+      section_changed=0
       # Extract the two numeric IDs from e.g. [Containments][30][Applets][36]
       cid=$(echo "$section" | grep -o '\[Containments\]\[[0-9]*\]' | grep -o '[0-9]*')
       aid=$(echo "$section" | grep -o '\[Applets\]\[[0-9]*\]'      | grep -o '[0-9]*')
@@ -69,19 +73,43 @@
         "longitude|''${lon}" \
         "locationName|''${city}" \
         "activeLocation|''${active_loc}" \
-        "savedLocations|''${saved_locs}"
+        "savedLocations|''${saved_locs}" \
+        "alertNotificationsEnabled|''${notification_enabled}" \
+        "notificationTodayEnabled|''${notification_enabled}" \
+        "notificationTomorrowEnabled|''${notification_enabled}" \
+        "notificationRainEnabled|''${notification_enabled}" \
+        "notificationSnowEnabled|''${notification_enabled}" \
+        "notificationUvEnabled|''${notification_enabled}" \
+        "notificationSpaceWeatherEnabled|''${notification_enabled}"
       do
         key="''${key_val%%|*}"
         val="''${key_val##*|}"
+        # Skip keys that already hold the value. This service runs whenever
+        # appletsrc changes, and rewriting it (plus the reload below) changes
+        # it again, which used to retrigger the service until systemd gave up.
+        cur=$(${kread} --file "$appletsrc" \
+          --group Containments --group "$cid" \
+          --group Applets      --group "$aid" \
+          --group Configuration --group General \
+          --key "$key" 2>/dev/null || true)
+        [ "$cur" = "$val" ] && continue
         ${kwrite} --file "$appletsrc" \
           --group Containments --group "$cid" \
           --group Applets      --group "$aid" \
           --group Configuration --group General \
           --key "$key" "$val"
+        section_changed=1
+        changed=1
       done
 
-      echo "weather-patch: wrote config for Containments/$cid/Applets/$aid -> $city"
+      if [ "$section_changed" = 1 ]; then
+        echo "weather-patch: wrote config for Containments/$cid/Applets/$aid -> $city"
+      fi
+      notification_enabled=false
     done
+
+    # Nothing changed: leave appletsrc and the running widgets alone.
+    [ "$changed" = 1 ] || exit 0
 
     # Best-effort live reload — run in background so the service exits quickly.
     # Writing is already done above via kwriteconfig6, so if the reload fails
@@ -122,6 +150,8 @@ in {
       Description = "Set weather widget location from SOPS secrets";
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
+      # The widget only exists in Plasma; skip this in e.g. Hyprland sessions.
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=KDE";
     };
     Service = {
       Type = "oneshot";
@@ -135,10 +165,11 @@ in {
       Description = "Watch appletsrc and re-apply weather location";
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=KDE";
     };
     Path = {
-      PathExists = "%h/.config/plasma-org.kde.plasma.desktop-appletsrc";
-      PathModified = "%h/.config/plasma-org.kde.plasma.desktop-appletsrc";
+      # Not PathExists: the file always exists, so that retriggered the service
+      # the moment it finished. The service itself already runs once at login.
       PathChanged = "%h/.config/plasma-org.kde.plasma.desktop-appletsrc";
       Unit = "weather-location-patch.service";
     };
@@ -150,6 +181,7 @@ in {
       Description = "Re-apply weather location once internet is reachable";
       After = ["graphical-session.target"];
       PartOf = ["graphical-session.target"];
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=KDE";
     };
     Service = {
       Type = "oneshot";

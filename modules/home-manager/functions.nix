@@ -15,6 +15,18 @@
           mkdir -p "$1" && cd "$1"
         }
 
+        # Restore AOC Agon colours to match the Samsungs. Gains first: writing one flips the preset to Native.
+        agon-fix() {
+          local bus
+          bus=$(ddcutil detect | awk '/I2C bus/ {b=$3} /Mfg id:.*AOC/ {sub("/dev/i2c-","",b); print b; exit}')
+          [ -z "$bus" ] && { echo "Agon not found"; return 1; }
+          for v in "12 50" "6C 80" "6E 80" "70 80" "16 100" "18 96" "1A 92"; do
+            ddcutil -b "$bus" setvcp ''${=v}
+          done
+          sleep 2
+          ddcutil -b "$bus" setvcp 14 05
+        }
+
         dashboard() {
           if ! systemctl is-active --quiet homepage-dashboard; then
             echo "Starting homepage-dashboard..."

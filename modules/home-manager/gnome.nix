@@ -5,10 +5,15 @@
 }: let
   wallpaper = "file://${config.home.homeDirectory}/.local/share/wallpapers/desktop.png";
 in {
-  home.packages = [pkgs.gnomeExtensions.blur-my-shell];
+  home.packages = [pkgs.gnomeExtensions.blur-my-shell pkgs.gnomeExtensions.clipboard-indicator];
 
   dconf.settings = {
-    "org/gnome/shell".enabled-extensions = ["blur-my-shell@aunetx"];
+    "org/gnome/shell".enabled-extensions = ["blur-my-shell@aunetx" "clipboard-indicator@tudmotu.com"];
+
+    "org/gnome/shell/extensions/clipboard-indicator" = {
+      toggle-menu = ["<Super><Shift>v"];
+      history-size = 100;
+    };
 
     "org/gnome/shell/extensions/blur-my-shell/panel" = {
       blur = true;
@@ -49,6 +54,8 @@ in {
 
     "org/gnome/desktop/wm/keybindings" = {
       close = ["<Super>q"];
+      minimize = [];
+      toggle-on-all-workspaces = ["<Super><Alt>p"];
       toggle-fullscreen = ["<Super>f"];
       switch-to-workspace-1 = ["<Super>1"];
       switch-to-workspace-2 = ["<Super>2"];
@@ -103,6 +110,12 @@ in {
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/software-library/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dictation/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-menu/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-record/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-ocr/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-qr/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/desktop-shortcuts/"
       ];
     };
 
@@ -116,6 +129,42 @@ in {
       name = "Software Library";
       command = "${pkgs.software-library}/bin/software-library";
       binding = "<Super>a";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dictation" = {
+      name = "Toggle Dictation";
+      command = "${pkgs.voxtype}/bin/voxtype record toggle";
+      binding = "<Super><Control>x";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-menu" = {
+      name = "Capture Menu";
+      command = "desktop-capture menu";
+      binding = "<Super><Control>c";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-record" = {
+      name = "Record Screen";
+      command = "desktop-capture record";
+      binding = "<Super><Control>r";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-ocr" = {
+      name = "Extract Screen Text";
+      command = "desktop-capture ocr";
+      binding = "<Super><Control>Print";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-qr" = {
+      name = "Scan Screen QR Code";
+      command = "desktop-capture qr";
+      binding = "<Super><Alt>Print";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/desktop-shortcuts" = {
+      name = "Keyboard Shortcuts";
+      command = "desktop-shortcuts";
+      binding = "<Super>h";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {

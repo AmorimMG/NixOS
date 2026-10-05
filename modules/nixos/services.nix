@@ -62,6 +62,11 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    # Don't pin apps to the last device they used; otherwise switching the
+    # default sink (e.g. to Bluetooth buds) leaves those apps on old outputs.
+    wireplumber.extraConfig."51-no-restore-target"."wireplumber.settings" = {
+      "node.stream.restore-target" = false;
+    };
   };
 
   systemd.mounts = [

@@ -138,7 +138,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Muddy Black";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "docker" "video" "render" "input"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "docker" "video" "render" "input" "i2c"];
     shell = pkgs.zsh;
     # Install-time bootstrap only — ignored once the account exists, and
     # overridden entirely when features.sops.userPassword.enable is on

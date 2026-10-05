@@ -41,6 +41,10 @@
           showBattery = true;
         };
       };
+      utilities = {
+        enabled = true;
+        cards.keepAwake = true;
+      };
       paths = {
         wallpaperDir = "${../../assets/wallpapers}";
       };

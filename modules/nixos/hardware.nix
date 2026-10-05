@@ -35,6 +35,8 @@
     useGrub = config.bootloader == "grub";
     useSystemdBoot = config.bootloader == "systemd-boot";
   in {
+    hardware.i2c.enable = true;
+    services.hardware.openrgb.enable = true;
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     boot.initrd.availableKernelModules = ["ata_piix" "mptspi" "uhci_hcd" "ehci_pci" "ahci" "sd_mod" "sr_mod" "i915" "i2c_designware_platform" "i2c_designware_core" "i2c_hid_acpi" "hid_multitouch"];
     boot.kernelModules = ["kvm-intel" "elan_i2c" "i2c-hid-acpi"];

@@ -46,7 +46,10 @@ in {
   };
   services.desktopManager.plasma6.enable = cfg.plasma.enable;
   # No X11 session left to drive, so its compositor is dead weight.
-  environment.plasma6.excludePackages = [pkgs.kdePackages.kwin-x11];
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    kwin-x11
+    discover
+  ];
   environment.systemPackages = lib.optional cfg.plasma.enable (
     pkgs.writeShellScriptBin "kde-plasma" ''
       exec ${pkgs.kdePackages.plasma-workspace}/libexec/plasma-dbus-run-session-if-needed \

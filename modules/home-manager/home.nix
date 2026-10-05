@@ -153,6 +153,9 @@
     [
       ./packages.nix
       ./software-library.nix
+      ./capture.nix
+      ./clipboard.nix
+      ./dictation.nix
       ./widgets.nix
       ./theme.nix
       ./shell.nix

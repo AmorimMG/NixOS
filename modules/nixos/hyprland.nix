@@ -17,6 +17,7 @@ lib.mkIf config.features.desktops.hyprland.enable {
       pkgs.kdePackages.xdg-desktop-portal-kde
     ];
     config.hyprland.default = ["kde" "hyprland" "gtk"];
+    config.hyprland."org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
   };
 
   security.pam.services.hyprlock = {};
@@ -28,7 +29,6 @@ lib.mkIf config.features.desktops.hyprland.enable {
     hyprlock
     hypridle
     wl-clipboard
-    cliphist
     grim
     slurp
     brightnessctl
