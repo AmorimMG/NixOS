@@ -234,6 +234,14 @@
       bindkey '^[^V' open-pwd-in-code
       bindkey '^[\x16' open-pwd-in-code
 
+      open-pwd-in-antigravity() {
+        dolphin-open-antigravity "$PWD" </dev/null >/dev/null 2>&1 &!
+        zle reset-prompt 2>/dev/null || true
+      }
+      zle -N open-pwd-in-antigravity
+      bindkey '^[^G' open-pwd-in-antigravity
+      bindkey '^[\x07' open-pwd-in-antigravity
+
       [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
     '';
   };

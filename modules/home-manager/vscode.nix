@@ -55,9 +55,24 @@
     Icon=vscode
   '';
 
+  xdg.dataFile."applications/dolphin-open-antigravity.desktop".text = ''
+    [Desktop Entry]
+    Name=Open Current Folder in Antigravity
+    Comment=Open the current Dolphin folder or terminal directory in Antigravity IDE
+    Exec=dolphin-open-antigravity
+    Type=Application
+    NoDisplay=true
+    Icon=antigravity
+  '';
+
   home.packages = [
+    (pkgs.writeShellScriptBin "dolphin-open-antigravity" ''
+      DOLPHIN_OPEN_EDITOR=antigravity-ide exec dolphin-open-vscode "$@"
+    '')
     (pkgs.writeShellScriptBin "dolphin-open-vscode" ''
-      if command -v code >/dev/null 2>&1; then
+      if [ -n "$DOLPHIN_OPEN_EDITOR" ]; then
+        CODE_BIN="$DOLPHIN_OPEN_EDITOR"
+      elif command -v code >/dev/null 2>&1; then
         CODE_BIN="code"
       elif command -v codium >/dev/null 2>&1; then
         CODE_BIN="codium"

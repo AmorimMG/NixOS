@@ -321,6 +321,7 @@ in {
         "$mod, T, exec, $terminal"
         "CTRL ALT, T, exec, dolphin-open-terminal"
         "CTRL ALT, V, exec, dolphin-open-vscode"
+        "CTRL ALT, G, exec, dolphin-open-antigravity"
         "$mod, H, exec, desktop-shortcuts"
         "$mod, S, exec, caelestia shell drawers toggle sidebar"
         "$mod, I, exec, bash -c 'hyprctl clients | grep -q intelligence-center && hyprctl dispatch closewindow class:intelligence-center || ghostty --class=intelligence-center -e antigravity'"
