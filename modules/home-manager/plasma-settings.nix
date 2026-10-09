@@ -322,6 +322,7 @@
           iconTasks = {
             launchers = [
               "applications:antigravity.desktop"
+              "applications:antigravity-ide.desktop"
               "applications:code.desktop"
               "applications:zen.desktop"
             ];

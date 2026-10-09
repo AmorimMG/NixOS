@@ -76,7 +76,7 @@
     };
 
     nixdatifier = {
-      url = "github:Muddyblack/kde-nixdatifier";
+      url = "github:Muddyblack/nixdatifier";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -176,6 +176,17 @@
                       (old.postFixup or "")
                       + ''
                         echo "Keywords=agy;antigravity;" >> $out/share/applications/antigravity.desktop
+                      '';
+                  });
+                # The default FHS/bwrap variant nests Electron's Chromium sandbox inside
+                # bwrap's no-new-privileges env, crash-looping the GPU process; use no-fhs.
+                google-antigravity-ide =
+                  (inputs.antigravity-nix.packages.${prev.stdenv.hostPlatform.system}.google-antigravity-ide-no-fhs).overrideAttrs
+                  (old: {
+                    postFixup =
+                      (old.postFixup or "")
+                      + ''
+                        echo "Keywords=agy;antigravity;" >> $out/share/applications/antigravity-ide.desktop
                       '';
                   });
                 google-antigravity-cli = inputs.antigravity-nix.packages.${prev.stdenv.hostPlatform.system}.google-antigravity-cli;

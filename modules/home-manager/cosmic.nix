@@ -127,6 +127,7 @@ in {
       "com.mitchellh.ghostty"
       "zen"
       "antigravity"
+      "antigravity-ide"
       "code"
       "org.kde.dolphin"
     ];

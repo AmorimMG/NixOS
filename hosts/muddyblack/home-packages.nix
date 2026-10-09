@@ -19,7 +19,6 @@
     # Media & Desktop
     freetube
     localsend
-    pinta
     kdePackages.kdenlive
 
     # Development & API tools
@@ -139,6 +138,7 @@
 
     # Editors & IDEs
     google-antigravity
+    google-antigravity-ide
     zed-editor
 
     # Recording & streaming

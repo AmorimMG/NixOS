@@ -40,7 +40,7 @@ in {
       ++ (lib.optional cfg.tagesschau.enable pkgs.tagesschau-widget)
       ++ (lib.optional cfg.aiUsage.enable pkgs.ai-usage-widget)
       ++ (lib.optional cfg.weather.enable pkgs.advanced-weather-widget)
-      ++ (lib.optional cfg.nixosGenerationExplorer.enable pkgs.kde-nixdatifier)
+      ++ (lib.optional cfg.nixosGenerationExplorer.enable pkgs.nixdatifier)
       ++ (lib.optional cfg.gitpulse.enable pkgs.kde-gitpulse);
 
     xdg.dataFile =
@@ -94,7 +94,7 @@ in {
       })
       // (lib.optionalAttrs cfg.nixosGenerationExplorer.enable {
         "plasma/plasmoids/org.muddyblack.nixosGenerationExplorer" = {
-          source = "${pkgs.kde-nixdatifier}/share/plasma/plasmoids/org.muddyblack.nixosGenerationExplorer";
+          source = "${pkgs.nixdatifier}/share/plasma/plasmoids/org.muddyblack.nixosGenerationExplorer";
           force = true;
         };
       })

@@ -45,5 +45,6 @@
     gl = "git log --oneline --graph --decorate";
 
     dig = "doggo";
+    z = "__zoxide_z";
   };
 }
