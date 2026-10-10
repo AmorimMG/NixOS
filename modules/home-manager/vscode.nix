@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.vscode = {
     enable = true;
 
@@ -18,6 +22,9 @@
       # Settings (settings.json)
       userSettings = {
         "keyboard.dispatch" = "keyCode";
+        # Full project path first: dolphin-open-vscode reads it from the window
+        # title to hand the project to the other IDE (Ctrl+Alt+V / Ctrl+Alt+G).
+        "window.title" = "\${rootPath} — \${appName}";
         "workbench.colorTheme" = "Midnight Marina";
         "workbench.iconTheme" = "material-icon-theme";
         "qt-core.showWelcomePageOnActivation" = false;
@@ -65,7 +72,21 @@
     Icon=antigravity
   '';
 
+  # Antigravity's settings.json is a plain mutable file (not managed above), so
+  # merge just the window.title key into it instead of overwriting the file.
+  home.activation.antigravityWindowTitle = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"] ''
+    for f in "$HOME/.config/Antigravity/User/settings.json" "$HOME/.config/Antigravity IDE/User/settings.json"; do
+      [ -f "$f" ] && [ ! -L "$f" ] || continue
+      tmp=$(mktemp)
+      if ${pkgs.jq}/bin/jq '. + {"window.title": "''${rootPath} — ''${appName}"}' "$f" > "$tmp" 2>/dev/null; then
+        cat "$tmp" > "$f"
+      fi
+      rm -f "$tmp"
+    done
+  '';
+
   home.packages = [
+    pkgs.kdotool
     (pkgs.writeShellScriptBin "dolphin-open-antigravity" ''
       DOLPHIN_OPEN_EDITOR=antigravity-ide exec dolphin-open-vscode "$@"
     '')
@@ -196,13 +217,38 @@
 
       QDBUS="${pkgs.kdePackages.qttools}/bin/qdbus"
 
-      if [ -z "$target_dir" ] && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && command -v hyprctl >/dev/null 2>&1; then
-        active_win=$(hyprctl activewindow -j 2>/dev/null)
-        w_class=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.class // empty' 2>/dev/null)
-        w_title=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.title // empty' 2>/dev/null)
-        w_pid=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.pid // empty' 2>/dev/null)
+      have_win=""
+      if [ -z "$target_dir" ]; then
+        if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && command -v hyprctl >/dev/null 2>&1; then
+          active_win=$(hyprctl activewindow -j 2>/dev/null)
+          w_class=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.class // empty' 2>/dev/null)
+          w_title=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.title // empty' 2>/dev/null)
+          w_pid=$(echo "$active_win" | ${pkgs.jq}/bin/jq -r '.pid // empty' 2>/dev/null)
+          have_win=1
+        elif [ -n "$KDE_FULL_SESSION" ] && command -v kdotool >/dev/null 2>&1; then
+          kd_id=$(kdotool getactivewindow 2>/dev/null)
+          if [ -n "$kd_id" ]; then
+            w_class=$(kdotool getwindowclassname "$kd_id" 2>/dev/null)
+            w_title=$(kdotool getwindowname "$kd_id" 2>/dev/null)
+            w_pid=$(kdotool getwindowpid "$kd_id" 2>/dev/null)
+            have_win=1
+          fi
+        fi
+      fi
 
+      if [ -n "$have_win" ]; then
         case "$w_class" in
+          # Another VS Code-family IDE: its window.title is "<rootPath> — <app>"
+          # (set in vscode.nix and Antigravity's settings), so hand that project over.
+          [Cc]ode|*[Aa]ntigravity*)
+            ide_dir="''${w_title%% — *}"
+            ide_dir="''${ide_dir/#\~/$HOME}"
+            if [ -d "$ide_dir" ]; then
+              target_dir="$ide_dir"
+            elif [ -f "$ide_dir" ]; then
+              target_dir="$(dirname "$ide_dir")"
+            fi
+            ;;
           *ghostty*|*Ghostty*|*konsole*|*Konsole*|*kitty*|*Kitty*|*foot*|*alacritty*|*Alacritty*|*wezterm*|*WezTerm*|*terminal*|*Terminal*)
             target_dir=$(get_terminal_cwd "$w_pid" "$w_title")
             ;;
