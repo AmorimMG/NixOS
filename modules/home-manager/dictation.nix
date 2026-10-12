@@ -29,6 +29,7 @@ in {
       ExecStart = "${pkgs.voxtype}/bin/voxtype --no-hotkey --model ${whisperModel} --language auto --threads 4 --on-demand-loading --type-delay 2 --dotool-xkb-layout ${osConfig.keyboardLayout} daemon";
       Restart = "on-failure";
       RestartSec = "30s";
+      RuntimeDirectory = "voxtype";
 
       # Transcription is fully local: the model is pinned in the store and the
       # service gets no network, so nothing can leave the machine.
