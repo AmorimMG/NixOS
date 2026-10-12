@@ -81,7 +81,7 @@
     name = "PDF Craft (Two-Page)";
     genericName = "PDF Viewer";
     comment = "View PDF documents with two-page layout";
-    exec = "pdfcraft --two-page %U";
+    exec = "pdfcraft %U";
     icon = "pdfcraft";
     categories = ["Utility" "Viewer"];
     mimeType = ["application/pdf"];
