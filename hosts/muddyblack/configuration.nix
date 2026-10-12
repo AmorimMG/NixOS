@@ -10,7 +10,7 @@
     ../../modules/nixos/features/virt.nix
     ../../modules/nixos/features/gaming.nix
     ../../modules/nixos/features/homepage.nix
-    ../../modules/nixos/features/stirling-pdf.nix
+    # sunsetting: ../../modules/nixos/features/stirling-pdf.nix (replaced by pdfcraft)
     ../../modules/nixos/features/firefly-iii.nix
     ../../modules/nixos/features/paperless.nix
     ../../modules/nixos/features/portmaster.nix
@@ -48,7 +48,7 @@
     enable = true;
     package = pkgs.wireshark;
   };
-  features.stirling-pdf.enable = true;
+  # features.stirling-pdf.enable = true;
   features.firefly-iii.enable = true;
   features.paperless.enable = true;
   features.portmaster.enable = true;

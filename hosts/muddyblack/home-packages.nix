@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [../../modules/home-manager/resolve.nix];
 
   ai.agents = [
@@ -15,7 +19,9 @@
     "opencode"
   ];
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let
+    craftApps = inputs.craft-apps.packages.${pkgs.system};
+  in [
     # Media & Desktop
     freetube
     localsend
@@ -70,9 +76,19 @@
     onlyoffice-desktopeditors
     obsidian
     portfolio
-    stirling-pdf-ui
     firefly-iii-app
     paperless-ngx-ui
+    # stirling-pdf-ui # sunsetting
+    craftApps.pdfcraft
+    craftApps.photocraft
+    craftApps.vectorcraft
+    craftApps.filmcraft
+    craftApps.lightcraft
+    craftApps.effectcraft
+    craftApps.wordcraft
+    craftApps.deckcraft
+    craftApps.gridcraft
+    craftApps.soundcraft
 
     # Networking
     motrix

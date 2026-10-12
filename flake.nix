@@ -100,6 +100,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    craft-apps = {
+      url = "github:Muddyblack/craft-apps-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "";
+    };
+
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
@@ -108,7 +114,6 @@
   #   Open WebUI   → http://localhost:8765
   #   Homepage     → http://localhost:8082
   #   Firefly III  → http://localhost:8083
-  #   Stirling-PDF → http://localhost:8080
   #   Paperless    → http://localhost:28981
 
   outputs = {

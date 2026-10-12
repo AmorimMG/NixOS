@@ -28,9 +28,14 @@
       "image/bmp" = ["org.kde.gwenview.desktop"];
       "image/tiff" = ["org.kde.gwenview.desktop"];
       "image/svg+xml" = ["org.kde.gwenview.desktop"];
-      # Sandboxed PDF viewer (Flatpak Evince) instead of the browser —
-      # untrusted-PDF parsing is contained in bubblewrap. See features/flatpak.nix.
-      "application/pdf" = ["org.gnome.Evince.desktop"];
+      "application/pdf" = ["pdfcraft-twopaged.desktop" "ai.storyteller.pdfcraft.desktop"];
+      "image/vnd.adobe.photoshop" = ["ai.storyteller.photocraft.desktop"];
+      "image/x-psd" = ["ai.storyteller.photocraft.desktop"];
+      "image/x-psb" = ["ai.storyteller.photocraft.desktop"];
+      "application/illustrator" = ["ai.storyteller.vectorcraft.desktop"];
+      "application/postscript" = ["ai.storyteller.vectorcraft.desktop"];
+      "image/x-eps" = ["ai.storyteller.vectorcraft.desktop"];
+      "image/x-adobe-dng" = ["ai.storyteller.lightcraft.desktop"];
       "video/mp4" = ["mpv.desktop"];
       "video/x-matroska" = ["mpv.desktop"];
       "video/webm" = ["mpv.desktop"];
@@ -49,6 +54,13 @@
       "x-scheme-handler/termius" = ["termius-app.desktop"];
       "x-scheme-handler/terminal" = ["com.mitchellh.ghostty.desktop"];
     };
+    associations.added."application/pdf" = ["zen.desktop" "google-chrome.desktop"];
+  };
+
+  xdg.desktopEntries."com.google.Chrome" = {
+    name = "Google Chrome";
+    noDisplay = true;
+    settings.Hidden = "true";
   };
 
   # The termius-app.desktop shipped by nixpkgs has neither %U nor a MimeType,
@@ -63,6 +75,17 @@
     icon = "termius-app";
     categories = ["Network"];
     mimeType = ["x-scheme-handler/termius"];
+  };
+
+  xdg.desktopEntries."pdfcraft-twopaged" = {
+    name = "PDF Craft (Two-Page)";
+    genericName = "PDF Viewer";
+    comment = "View PDF documents with two-page layout";
+    exec = "pdfcraft --two-page %U";
+    icon = "pdfcraft";
+    categories = ["Utility" "Viewer"];
+    mimeType = ["application/pdf"];
+    terminal = false;
   };
 
   xdg.dataFile."mime/packages/guitar-pro.xml".text = ''

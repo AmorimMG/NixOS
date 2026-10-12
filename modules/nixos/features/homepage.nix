@@ -132,11 +132,6 @@ in {
               href = "http://localhost:8082";
               description = "Primary launcher and docs hub";
             })
-            (mkService "Stirling PDF" {
-              icon = "stirling-pdf.svg";
-              href = "http://localhost:8080";
-              description = "Local PDF tools";
-            })
             (mkService "Firefly III" {
               icon = "firefly-iii.svg";
               href = "http://localhost:8083";

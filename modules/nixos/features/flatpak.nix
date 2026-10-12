@@ -31,7 +31,6 @@
       uninstallUnmanaged = false;
       packages = [
         "com.github.tchx84.Flatseal" # per-app permission editor
-        "org.gnome.Evince" # sandboxed PDF/document viewer
         "com.discordapp.Discord" # chat client (replaces the native pkg)
       ];
       # nix-flatpak defaults the Flathub remote already; listed explicitly so
