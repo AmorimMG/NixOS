@@ -2,7 +2,7 @@
 {
   lib,
   stdenvNoCC,
-  fetchurl,
+  callPackage,
   autoPatchelfHook,
   makeWrapper,
   gcc-unwrapped,
@@ -17,10 +17,9 @@
   libxcb,
   fontconfig,
   alsa-lib,
-  pname,
-  version,
-  hash,
+  name,
 }: let
+  source = callPackage ./source.nix {} name;
   libs = [
     wayland
     libxkbcommon
@@ -36,12 +35,8 @@
   ];
 in
   stdenvNoCC.mkDerivation {
-    inherit pname version;
-
-    src = fetchurl {
-      url = "https://github.com/storytold/${pname}/releases/download/v${version}/${pname}-${version}-linux-x86_64.tar.gz";
-      inherit hash;
-    };
+    pname = name;
+    inherit (source) version src;
 
     nativeBuildInputs = [autoPatchelfHook makeWrapper];
     buildInputs = [gcc-unwrapped.lib] ++ libs;
@@ -60,9 +55,9 @@ in
     '';
 
     meta = {
-      homepage = "https://getartcraft.com/apps/${pname}";
+      homepage = "https://getartcraft.com/apps/${name}";
       license = lib.licenses.asl20;
       platforms = ["x86_64-linux"];
-      mainProgram = pname;
+      mainProgram = name;
     };
   }

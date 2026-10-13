@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [../../modules/home-manager/resolve.nix];
 
   ai.agents = [
@@ -19,9 +15,7 @@
     "opencode"
   ];
 
-  home.packages = with pkgs; let
-    craftApps = inputs.craft-apps.packages.${pkgs.system};
-  in [
+  home.packages = with pkgs; [
     # Media & Desktop
     freetube
     localsend

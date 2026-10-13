@@ -146,19 +146,19 @@ in {
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-record" = {
       name = "Record Screen";
       command = "desktop-capture record";
-      binding = "<Super><Control>r";
+      binding = "<Super><Shift>r";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-ocr" = {
       name = "Extract Screen Text";
       command = "desktop-capture ocr";
-      binding = "<Super><Control>Print";
+      binding = "<Super><Shift>t";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/capture-qr" = {
       name = "Scan Screen QR Code";
       command = "desktop-capture qr";
-      binding = "<Super><Alt>Print";
+      binding = "<Super><Shift>q";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/desktop-shortcuts" = {

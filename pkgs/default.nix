@@ -1,4 +1,4 @@
-inputs: final: _prev: let
+inputs: final: prev: let
   # Own widgets ship their own flake. Take the package from there instead of
   # re-deriving the install phase here: upstream's is where NixOS-specific
   # fixes land (ai-usage pins the Python interpreter, without which
@@ -75,6 +75,8 @@ in {
   firefly-iii-app = final.callPackage ./apps/firefly-iii-app.nix {};
   stirling-pdf-ui = final.callPackage ./apps/stirling-pdf.nix {};
   paperless-ngx-ui = final.callPackage ./apps/paperless.nix {};
+  craftApps = final.callPackage ./craft {};
+  kdePackages = prev.kdePackages.overrideScope (_: kprev: {spectacle = final.callPackage ./apps/spectacle.nix {inherit (kprev) spectacle;};});
 
   # ═══════════════════════════════════════════════════════════════════════════
   # AI - Agent CLIs not in nixpkgs, versions from ai/nvfetcher.toml

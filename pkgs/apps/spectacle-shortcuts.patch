@@ -1,0 +1,87 @@
+--- a/src/Gui/CaptureOverlay.qml
++++ b/src/Gui/CaptureOverlay.qml
+@@ -976,6 +976,14 @@
+         onActivated: contextWindow.showPreferencesDialog()
+     }
+ 
++    Shortcut {
++        sequence: "Ctrl+Q"
++        onActivated: {
++            SpectacleCore.copyNextQrCode()
++            contextWindow.accept()
++        }
++    }
++
+     Connections {
+         target: contextWindow
+         function onVisibilityChanged(visibility) {
+--- a/src/Gui/OcrAction.qml
++++ b/src/Gui/OcrAction.qml
+@@ -12,6 +12,7 @@
+              SpectacleCore.ocrAvailable && 
+              SpectacleCore.ocrStatus !== 1
+     icon.name: "document-scan"
++    shortcut: "Ctrl+T"
+     text: i18nc("@action", "Extract Text")
+     onTriggered: SpectacleCore.startOcrExtraction()
+ }
+--- a/src/SpectacleCore.cpp
++++ b/src/SpectacleCore.cpp
+@@ -60,6 +60,7 @@
+ #include <QTemporaryFile>
+ #include <QTextStream>
+ #include <QTimer>
++#include <KSystemClipboard>
+ #include <QtMath>
+ #include <qobjectdefs.h>
+ 
+@@ -530,7 +531,15 @@
+     };
+     connect(exportManager, &ExportManager::videoExported, this, onVideoExported);
+ 
+-    auto onQRCodeScanned = [](const QVariant &result) {
++    auto onQRCodeScanned = [this](const QVariant &result) {
++        if (m_copyNextQrCode) {
++            m_copyNextQrCode = false;
++            if (result.typeId() == QMetaType::QString) {
++                auto data = new QMimeData();
++                data->setText(result.toString());
++                KSystemClipboard::instance()->setMimeData(data, QClipboard::Clipboard);
++            }
++        }
+         auto viewerWindow = ViewerWindow::instance();
+         if (!viewerWindow) {
+             return;
+@@ -731,6 +740,14 @@
+     return result;
+ }
+ 
++void SpectacleCore::copyNextQrCode()
++{
++    m_copyNextQrCode = true;
++    QTimer::singleShot(5000, this, [this] {
++        m_copyNextQrCode = false;
++    });
++}
++
+ bool SpectacleCore::startOcrExtraction(const QString &languageCode)
+ {
+     if (m_videoMode) {
+--- a/src/SpectacleCore.h
++++ b/src/SpectacleCore.h
+@@ -82,6 +82,7 @@
+     OcrManager::OcrStatus ocrStatus() const;
+     Q_INVOKABLE QVariantMap ocrAvailableLanguages() const;
+     Q_INVOKABLE bool startOcrExtraction(const QString &languageCode = QString());
++    Q_INVOKABLE void copyNextQrCode();
+ 
+     void initGuiNoScreenshot();
+ 
+@@ -165,6 +166,7 @@
+     bool m_returnToViewer = false;
+     bool m_ocrExportInProgress = false;
+     bool m_quitAfterOcr = false;
++    bool m_copyNextQrCode = false;
+     QUrl m_screenCaptureUrl;
+     std::unique_ptr<ImagePlatform> m_imagePlatform;
+     std::unique_ptr<VideoPlatform> m_videoPlatform;

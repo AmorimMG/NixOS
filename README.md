@@ -368,10 +368,9 @@ gcnix         # garbage collect (keeps last 5 generations)
 | `Super + Q` | Close window |
 | `Super + F` | Fullscreen |
 | `Super + Shift + S` | Screenshot (region) |
-| `Alt + Print` | Start or stop screen recording |
-| `Super + Ctrl + R` | Start or stop screen recording |
-| `Super + Ctrl + Print` | Copy text from a screen region |
-| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + Shift + R` | Start or stop screen recording |
+| `Super + Shift + T` | Copy text from a screen region |
+| `Super + Shift + Q` | Copy a QR code from a screen region |
 | `Super + Ctrl + C` | Capture menu |
 | `Super + Ctrl + .` | Transcode media |
 | `Super + Shift + V` | Clipboard history |
@@ -415,9 +414,9 @@ Caelestia's Utilities panel shows the **Keep awake** card.
 | `Meta + Shift + V` | Clipboard history |
 | `Meta + Ctrl + X` | Toggle dictation |
 | `Meta + Ctrl + C` | Capture menu |
-| `Meta + Ctrl + R` | Start or stop screen recording |
-| `Meta + Ctrl + Print` | Copy text from a screen region |
-| `Meta + Alt + Print` | Copy a QR code from a screen region |
+| `Meta + Shift + R` | Start or stop screen recording |
+| `Meta + Shift + T` | Copy text from a screen region |
+| `Meta + Shift + Q` | Copy a QR code from a screen region |
 | `Meta + Alt + P` | Keep active window on all desktops |
 | `Meta + H` | Open keyboard shortcut settings |
 
@@ -449,9 +448,9 @@ The visible battery icon in the system tray has Plasma's **Manually block sleep 
 | `Super + Shift + V` | Clipboard history |
 | `Super + Ctrl + X` | Toggle dictation |
 | `Super + Ctrl + C` | Capture menu |
-| `Super + Ctrl + R` | Start or stop screen recording |
-| `Super + Ctrl + Print` | Copy text from a screen region |
-| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + Shift + R` | Start or stop screen recording |
+| `Super + Shift + T` | Copy text from a screen region |
+| `Super + Shift + Q` | Copy a QR code from a screen region |
 | `Super + H` | Open keyboard shortcut settings |
 | `Super + Alt + P` | Pin active window across workspaces |
 
@@ -476,9 +475,9 @@ Configured declaratively via [`cosmic-manager`](https://github.com/HeitorAugusto
 | `Super + Shift + V` | Clipboard history |
 | `Super + Ctrl + X` | Toggle dictation |
 | `Super + Ctrl + C` | Capture menu |
-| `Super + Ctrl + R` | Start or stop screen recording |
-| `Super + Ctrl + Print` | Copy text from a screen region |
-| `Super + Alt + Print` | Copy a QR code from a screen region |
+| `Super + Shift + R` | Start or stop screen recording |
+| `Super + Shift + T` | Copy text from a screen region |
+| `Super + Shift + Q` | Copy a QR code from a screen region |
 | `Super + H` | Open keyboard shortcut settings |
 | `Super + Alt + P` | Pin active window across workspaces |
 

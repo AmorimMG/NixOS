@@ -243,15 +243,15 @@ in {
           action = spawn "desktop-capture menu";
         }
         {
-          key = "Super+Ctrl+R";
+          key = "Super+Shift+R";
           action = spawn "desktop-capture record";
         }
         {
-          key = "Super+Ctrl+Print";
+          key = "Super+Shift+T";
           action = spawn "desktop-capture ocr";
         }
         {
-          key = "Super+Alt+Print";
+          key = "Super+Shift+Q";
           action = spawn "desktop-capture qr";
         }
         {

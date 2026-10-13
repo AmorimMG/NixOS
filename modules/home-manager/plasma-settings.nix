@@ -475,9 +475,8 @@ in {
       "services/clipboard-history.desktop"._launch = "Meta+Shift+V";
       "services/dictation-toggle.desktop"._launch = "Meta+Ctrl+X";
       "services/capture-menu.desktop"._launch = "Meta+Ctrl+C";
-      "services/capture-record.desktop"._launch = "Meta+Ctrl+R";
-      "services/capture-ocr.desktop"._launch = "Meta+Ctrl+Print";
-      "services/capture-qr.desktop"._launch = "Meta+Alt+Print";
+      "services/capture-ocr.desktop"._launch = "Meta+Shift+T";
+      "services/capture-qr.desktop"._launch = "Meta+Shift+Q";
       "services/desktop-shortcuts.desktop"._launch = "Meta+H";
       "services/org.kde.systemmonitor.desktop"._launch = "none";
       "caelestia-monitor.desktop"."_launch" = "Ctrl+Shift+Esc";
@@ -492,6 +491,7 @@ in {
       "org.kde.spectacle.desktop" = {
         ActiveWindowScreenShot = "Meta+Print";
         RectangularRegionScreenShot = "Meta+Shift+S";
+        RecordRegion = "Meta+Shift+R";
         FullScreenScreenShot = "Print";
         WindowUnderCursorScreenShot = "none";
         CurrentMonitorScreenShot = "none";
@@ -625,6 +625,8 @@ in {
       spectaclerc.General.useLastVisitedDirectory = true;
       spectaclerc.General.compressionQuality = 95;
       spectaclerc.General.copyImageToClipboard = true;
+      spectaclerc.General.closeAfterOcr = true;
+      spectaclerc.General.ocrLanguages = "eng,deu";
       spectaclerc.GuiConfig.captureMode = 1;
       spectaclerc.ImageSave.imageCompressionQuality = 95;
       spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";

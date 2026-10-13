@@ -100,12 +100,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    craft-apps = {
-      url = "github:Muddyblack/craft-apps-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "";
-    };
-
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 

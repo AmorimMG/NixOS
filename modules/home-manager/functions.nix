@@ -145,6 +145,8 @@
           flake_path="$(_resolve_flake_dir)" || flake_path="."
           echo "Updating flake inputs in $flake_path..."
           _flake_update "$flake_path" "''$@"
+          echo "Updating craft apps..."
+          update-craft
         }
 
         upall() {
@@ -153,6 +155,7 @@
 
           echo "Updating flake inputs..."
           _flake_update "$flake_path" || return 1
+          update-craft || echo "Craft apps update failed, keeping current versions."
 
           local old_gen
           old_gen=$(readlink -f /nix/var/nix/profiles/system)
@@ -338,6 +341,13 @@
           PATH="${lib.makeBinPath [pkgs.nvfetcher pkgs.curl pkgs.jq pkgs.gnugrep pkgs.coreutils]}:$PATH" \
             nvfetcher -c "$_dir/nvfetcher.toml" -o "$_dir/_sources" "$@" \
             && rm -f "$_dir/_sources/generated.nix"
+        }
+
+        update-craft() {
+          local _flake_path
+          _flake_path="$(_resolve_flake_dir)" || { echo "Could not locate nixos-config."; return 1; }
+          PATH="${lib.makeBinPath [pkgs.gh pkgs.jq pkgs.nix pkgs.coreutils pkgs.gnused]}:$PATH" \
+            bash "$_flake_path/pkgs/craft/update.sh"
         }
 
         update-pkg() {

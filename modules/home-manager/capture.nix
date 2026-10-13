@@ -83,18 +83,13 @@
     name = "desktop-capture";
     runtimeInputs = with pkgs; [
       coreutils
-      ffmpeg-full
-      fuzzel
       gpu-screen-recorder
       grim
       hyprpicker
-      hyprshot
-      kdePackages.kdialog
+      kdePackages.spectacle
       libnotify
-      ripgrep
-      slurp
       satty
-      v4l-utils
+      slurp
       wl-clipboard
       zbar
       ocr
@@ -102,6 +97,7 @@
     ];
     text = ''
       action="''${1:-menu}"
+      desktop="''${XDG_CURRENT_DESKTOP:-}"
       runtime="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
       pid_file="$runtime/desktop-capture-recording.pid"
 
@@ -113,140 +109,82 @@
         [[ "$(readlink "/proc/$pid/exe")" == *gpu-screen-recorder* ]]
       }
 
-      choose() {
-        desktop-menu "$1"
-      }
-
-      region() {
-        slurp -f '%wx%h+%x+%y'
-      }
-
-      capture_image() {
-        if [[ "''${XDG_CURRENT_DESKTOP:-}" == *Hyprland* ]]; then
-          geometry=$(region) || return 1
-          grim -g "$geometry" "$2"
-        else
-          ${python}/bin/python ${portalCapture} "$1" "$2"
-        fi
+      region_image() {
+        case "$desktop" in
+          *KDE*) spectacle --background --region --nonotify --output "$1" ;;
+          *Hyprland*)
+            geometry=$(slurp) || return 1
+            grim -g "$geometry" "$1"
+            ;;
+          *) ${python}/bin/python ${portalCapture} region "$1" ;;
+        esac
+        [ -s "$1" ]
       }
 
       case "$action" in
         menu)
-          if recording_active; then
-            choices='Stop recording\nScreenshot region\nScreenshot window\nExtract text\nScan QR code\nTranscode media'
-          else
-            choices='Screenshot region\nScreenshot window\nRecord screen or window\nExtract text\nScan QR code\nTranscode media'
-          fi
-          if [[ "''${XDG_CURRENT_DESKTOP:-}" == *Hyprland* ]]; then choices="$choices\nPick color"; fi
-          selection=$(printf '%b\n' "$choices" | choose 'capture> ') || exit 0
+          choices=('Screenshot' 'Record screen' 'Extract text' 'Scan QR code' 'Transcode media')
+          if [[ "$desktop" == *Hyprland* ]]; then choices+=('Pick color'); fi
+          selection=$(printf '%s\n' "''${choices[@]}" | desktop-menu 'capture> ') || exit 0
           case "$selection" in
-            'Stop recording') exec "$0" record stop ;;
-            'Screenshot region'|'Screenshot window')
-              image=$(mktemp --suffix=.png)
-              trap 'rm -f "$image"' EXIT
-              if [[ "$selection" == 'Screenshot region' ]]; then
-                if [[ "''${XDG_CURRENT_DESKTOP:-}" == *Hyprland* ]]; then
-                  hyprshot -m region -z --raw | satty --filename -
-                  exit
-                fi
-                capture_image region "$image" || exit 0
-              else
-                if [[ "''${XDG_CURRENT_DESKTOP:-}" == *Hyprland* ]]; then
-                  hyprshot -m window -z --raw | satty --filename -
-                  exit
-                fi
-                ${python}/bin/python ${portalCapture} window "$image" || exit 0
-              fi
-              satty --filename "$image"
-              ;;
-            'Record screen or window') exec "$0" record ;;
+            'Screenshot') exec "$0" shot ;;
+            'Record screen') exec "$0" record ;;
             'Extract text') exec "$0" ocr ;;
             'Scan QR code') exec "$0" qr ;;
             'Pick color') exec hyprpicker -a ;;
             'Transcode media') exec media-transcode ;;
           esac
           ;;
+        shot)
+          case "$desktop" in
+            *KDE*) exec spectacle --region ;;
+            *Hyprland*) exec caelestia screenshot --region ;;
+          esac
+          image=$(mktemp --suffix=.png)
+          trap 'rm -f "$image"' EXIT
+          region_image "$image" || exit 0
+          satty --filename "$image"
+          ;;
         ocr)
           image=$(mktemp --suffix=.png)
           trap 'rm -f "$image"' EXIT
-          capture_image region "$image" || exit 0
-          result=$(tesseract "$image" stdout -l deu+eng --psm 6 2>/dev/null) || exit 1
+          region_image "$image" || exit 0
+          result=$(tesseract "$image" stdout -l deu+eng --psm 6 2>/dev/null) || true
           if [ -n "$result" ]; then
             printf '%s' "$result" | wl-copy
-            notify-send 'Text copied to clipboard'
+            notify-send -i edit-copy 'Text copied' "$(printf '%s' "$result" | head -c 160)"
           else
-            notify-send 'No text found'
+            notify-send -i dialog-warning 'No text found'
           fi
           ;;
         qr)
           image=$(mktemp --suffix=.png)
           trap 'rm -f "$image"' EXIT
-          capture_image region "$image" || exit 0
+          region_image "$image" || exit 0
           result=$(zbarimg --quiet --raw -Sdisable -Sqrcode.enable "$image" 2>/dev/null) || true
           if [ -n "$result" ]; then
             printf '%s' "$result" | wl-copy
-            notify-send 'QR code copied to clipboard'
+            notify-send -i view-barcode-qr 'QR code copied' "$(printf '%s' "$result" | head -c 160)"
           else
-            notify-send 'No QR code found'
+            notify-send -i dialog-warning 'No QR code found'
           fi
           ;;
         record)
+          case "$desktop" in
+            *KDE*) exec spectacle --record region ;;
+            *Hyprland*) exec caelestia record --region --sound ;;
+          esac
           if recording_active; then
             kill -INT "$pid"
             rm -f "$pid_file"
-            notify-send 'Recording stopped' 'Saving the video in Videos'
+            notify-send -i media-record 'Recording stopped' 'Saved in Videos'
             exit 0
           fi
-          rm -f "$pid_file"
-          mode="''${2:-}"
-          if [ "$mode" = stop ]; then exit 0; fi
-          if [ -z "$mode" ]; then
-            mode=$(printf '%s\n' 'No audio' 'Desktop audio' 'Microphone' 'Desktop + microphone' 'Desktop + microphone + webcam' | choose 'record audio> ') || exit 0
-          fi
-          if [[ "''${XDG_CURRENT_DESKTOP:-}" == *Hyprland* ]]; then
-            target=$(printf '%s\n' 'Choose window or monitor' 'Select an area' | choose 'record target> ') || exit 0
-          else
-            target='Choose window or monitor'
-          fi
-          region_args=()
-          if [ "$target" = 'Select an area' ]; then
-            geometry=$(region) || exit 0
-            source=region
-            region_args=(-region "$geometry")
-          else
-            source=portal
-          fi
-          audio=()
-          case "$mode" in
-            'No audio'|none) ;;
-            'Desktop audio'|desktop) audio=(-a default_output) ;;
-            'Microphone'|mic) audio=(-a default_input) ;;
-            'Desktop + microphone'|both) audio=(-a 'default_output|default_input') ;;
-            'Desktop + microphone + webcam'|webcam)
-              cameras=()
-              for device in /dev/video*; do
-                [ -e "$device" ] || continue
-                if v4l2-ctl -d "$device" --list-formats-ext 2>/dev/null | rg -q 'MJPG|YUYV|NV12'; then
-                  cameras+=("$device")
-                fi
-              done
-              if [ "''${#cameras[@]}" -eq 0 ]; then notify-send 'No webcam found'; exit 1; fi
-              if [ "''${#cameras[@]}" -eq 1 ]; then
-                camera="''${cameras[0]}"
-              else
-                camera=$(printf '%s\n' "''${cameras[@]}" | choose 'camera> ') || exit 0
-              fi
-              audio=(-a 'default_output|default_input')
-              source="$source|$camera;halign=end;valign=end;width=25%;height=25%"
-              ;;
-            *) exit 0 ;;
-          esac
           mkdir -p "$HOME/Videos"
           output="$HOME/Videos/screenrecording-$(date +%Y-%m-%d_%H-%M-%S).mp4"
-          gpu-screen-recorder -w "$source" "''${region_args[@]}" -f 30 -c mp4 "''${audio[@]}" -o "$output" &
-          pid=$!
-          printf '%s\n' "$pid" > "$pid_file"
-          notify-send 'Recording started' "$output"
+          gpu-screen-recorder -w portal -f 30 -c mp4 -a 'default_output|default_input' -o "$output" &
+          printf '%s\n' "$!" > "$pid_file"
+          notify-send -i media-record 'Recording started' "$output"
           ;;
         *) printf 'Unknown capture action: %s\n' "$action" >&2; exit 2 ;;
       esac
@@ -285,18 +223,12 @@
 in {
   home.packages = [capture transcode menu];
 
+  systemd.user.sessionVariables.TESSDATA_PREFIX = "${ocr}/share/tessdata";
+
   xdg.desktopEntries.capture-menu = {
     name = "Capture";
     exec = "${capture}/bin/desktop-capture menu";
     icon = "camera-photo";
-    categories = ["Utility"];
-    noDisplay = true;
-  };
-
-  xdg.desktopEntries.capture-record = {
-    name = "Record Screen";
-    exec = "${capture}/bin/desktop-capture record";
-    icon = "media-record";
     categories = ["Utility"];
     noDisplay = true;
   };
