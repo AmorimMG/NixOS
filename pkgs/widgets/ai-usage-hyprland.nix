@@ -37,7 +37,9 @@ in
       # shell.qml must sit at the repo root beside hosts/, ui/ and backend/: it is the Quickshell
       # entry point and its directory becomes the QML sandbox root, which has to
       # contain all of them for the shell's shared UI/JS imports to resolve.
-      cp -r ../hosts ../ui ../backend ../shell.qml "$out/share/ai-usage-widget/"
+      # assets/ (provider + tab icons) and translate/ are read at runtime via
+      # repoDir; without them every tab icon and the watermark fail to load.
+      cp -r ../hosts ../ui ../backend ../assets ../translate ../shell.qml "$out/share/ai-usage-widget/"
 
       install -Dm644 ${quickshellDesktop}/share/applications/org.quickshell.desktop \
         "$out/share/applications/org.quickshell.desktop"
