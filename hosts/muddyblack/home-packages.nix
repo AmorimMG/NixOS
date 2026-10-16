@@ -9,6 +9,7 @@
     "github-copilot-cli"
     "google-antigravity-cli"
     "grok-build"
+    # "grok-bot"
     "junie"
     "kiro-cli"
     "mistral-vibe"

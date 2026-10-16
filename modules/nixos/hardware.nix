@@ -190,6 +190,9 @@
       "vt.global_cursor_default=0"
       "plymouth.ignore-serial-consoles"
       "acpi_backlight=native"
+      # Keep console output alive through suspend so a resume hang leaves a trace.
+      "no_console_suspend"
+      "pm_debug_messages"
     ];
     boot.consoleLogLevel = 0;
     boot.initrd.verbose = false;
@@ -220,6 +223,19 @@
           ConnectionSupervisionTimeout = 200;
           Autoconnect = true;
         };
+      };
+    };
+
+    # systemd-rfkill restores a saved "blocked" state after the udev rule below ran, so
+    # the radio kept coming back soft-blocked. Unblock again once the restore is done
+    # and after resume.
+    systemd.services.bluetooth-rfkill-unblock = {
+      description = "Unblock Bluetooth rfkill after state restore";
+      wantedBy = ["multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target"];
+      after = ["systemd-rfkill.service" "suspend.target" "hibernate.target" "hybrid-sleep.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
       };
     };
 

@@ -249,6 +249,8 @@
           ];
           secretsPath = "/run/secrets";
           secretsSourcePath = "/etc/nixos/secrets/secrets.yaml";
+          # Lift GitHub's anonymous rate limit for release notes with the gh login.
+          githubUseGh = "true";
           # Use original colored SVG — isMask:false path, no accent-color tinting
           iconStyle = "colored";
           compactStyle = "icon";

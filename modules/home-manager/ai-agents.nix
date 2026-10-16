@@ -26,6 +26,7 @@
       cline
       droid
       google-antigravity-cli
+      grok-bot
       junie
       kimi-code
       mimo-code

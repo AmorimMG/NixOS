@@ -57,6 +57,7 @@
   features.keyring.enable = true;
   features.localsend.enable = true;
   features.power.enable = true;
+  features.hibernate.enable = true;
 
   security.wrappers.rustnet = {
     source = "${pkgs.rustnet}/bin/rustnet";

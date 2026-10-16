@@ -84,6 +84,7 @@ in {
   auggie = final.callPackage ./ai/auggie.nix {};
   cline = final.callPackage ./ai/cline.nix {};
   droid = final.callPackage ./ai/droid.nix {};
+  grok-bot = final.callPackage ./ai/grok-bot.nix {};
   junie = final.callPackage ./ai/junie.nix {};
   kimi-code = final.callPackage ./ai/kimi-code.nix {};
   mimo-code = final.callPackage ./ai/mimo-code.nix {};
