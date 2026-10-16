@@ -96,7 +96,13 @@ def collect_tools(packages, app_commands=(), path=None):
         try:
             for candidate in (Path(package_path) / "bin").iterdir():
                 name = candidate.name
-                if name not in claimed and available.get(name) == candidate.resolve():
+                executable = available.get(name)
+                wrapped = executable is not None and executable.is_relative_to(
+                    "/run/wrappers"
+                )
+                if name not in claimed and (
+                    executable == candidate.resolve() or wrapped
+                ):
                     commands.append(name)
         except OSError:
             continue

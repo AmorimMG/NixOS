@@ -89,23 +89,17 @@ in {
       lib.optional (cfg.resumeOffset != null)
       "resume_offset=${toString cfg.resumeOffset}";
 
-    # A warning, not an assertion: step 1 above has to build (to create the
-    # swapfile) before the offset can possibly be known.
-    warnings = lib.optional (cfg.resumeOffset == null) ''
-      features.hibernate is enabled but resumeOffset is unset: hibernation is
-      NOT wired up yet. Run
-        sudo btrfs inspect-internal map-swapfile -r ${swapfile}
-      and set features.hibernate.resumeOffset to the reported offset.
-    '';
-
-    # Once hibernation works, lid close falls through to it after an hour.
-    # s2idle here intermittently hangs on resume (black screen, hard reboot).
-    services.logind.settings.Login = lib.mkIf (cfg.resumeOffset != null) {
-      HandleLidSwitch = lib.mkForce "suspend-then-hibernate";
-      HandleLidSwitchExternalPower = lib.mkForce "suspend-then-hibernate";
-    };
-    systemd.sleep.settings.Sleep = lib.mkIf (cfg.resumeOffset != null) {
-      HibernateDelaySec = "1h";
-    };
+    assertions = [
+      {
+        assertion = cfg.resumeOffset != null;
+        message = ''
+          features.hibernate is enabled but resumeOffset is unset, so the system
+          could suspend to disk and then fail to resume. Rebuild once to create
+          ${swapfile}, then run:
+            sudo btrfs inspect-internal map-swapfile -r ${swapfile}
+          and set features.hibernate.resumeOffset to the reported offset.
+        '';
+      }
+    ];
   };
 }

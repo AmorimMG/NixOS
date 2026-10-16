@@ -8,6 +8,7 @@ lib.mkIf config.features.desktops.gnome.enable {
   services.desktopManager.gnome.enable = true;
 
   environment.gnome.excludePackages = with pkgs; [
+    decibels
     epiphany # GNOME Web
     geary # Mail
     totem # Videos

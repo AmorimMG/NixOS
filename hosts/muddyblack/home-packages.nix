@@ -63,11 +63,11 @@
     vesktop
     google-chrome
     thunderbird
+    bulwark-mail
     whatsapp
     termius
 
     # Documents
-    libreoffice-qt6
     onlyoffice-desktopeditors
     obsidian
     portfolio
@@ -141,7 +141,6 @@
     ffmpeg-full
     imagemagick
     upscayl
-    gnome-frog
     curtail
     davinci-resolve
     drwrap

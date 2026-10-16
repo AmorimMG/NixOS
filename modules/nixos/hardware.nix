@@ -190,9 +190,6 @@
       "vt.global_cursor_default=0"
       "plymouth.ignore-serial-consoles"
       "acpi_backlight=native"
-      # Keep console output alive through suspend so a resume hang leaves a trace.
-      "no_console_suspend"
-      "pm_debug_messages"
     ];
     boot.consoleLogLevel = 0;
     boot.initrd.verbose = false;
