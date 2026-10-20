@@ -202,7 +202,6 @@
       powerOnBoot = true;
       settings = {
         General = {
-          Enable = "Source,Sink,Media,Socket";
           Experimental = true;
           FastConnectable = true;
           JustWorksRepairing = "always";
@@ -218,7 +217,6 @@
           MaxConnectionInterval = 9;
           ConnectionLatency = 0;
           ConnectionSupervisionTimeout = 200;
-          Autoconnect = true;
         };
       };
     };

@@ -92,18 +92,15 @@
     cores = 0;
     min-free = 5 * 1024 * 1024 * 1024;
     max-free = 15 * 1024 * 1024 * 1024;
-    # attic.xuyh0120.win/lantian carries the prebuilt CachyOS kernels.
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://zen-browser.cachix.org"
-      "https://attic.xuyh0120.win/lantian"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "zen-browser.cachix.org-1:s1nHwe9zLAHRZOTMA/3qdVaRvbhBTAHAOW/dEhPsZvQ="
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
     always-allow-substitutes = true;
     fallback = true;
@@ -184,6 +181,8 @@
 
   programs.kdeconnect.enable = true;
   programs.nix-index.enable = true;
+  # nix-index provides command-not-found; the two are mutually exclusive.
+  programs.command-not-found.enable = false;
   zramSwap = {
     enable = true;
     algorithm = "zstd";

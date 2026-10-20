@@ -22,8 +22,10 @@
 
   networking.hostName = "muddyblack";
 
-  features.kernel.cachyos.enable = true;
-  features.kernel.cachyos.lto = true;
+  # CachyOS kernel off since 2026-10-15: its binary cache (attic.xuyh0120.win)
+  # was compromised and building LTO locally is too heavy. Re-enable once clean.
+  features.kernel.cachyos.enable = false;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   # Disabled 2026-08-23: scx_lavd attaches fine on linux-cachyos 7.2, then dies
   # at runtime with "runnable task stall" roughly once a minute, each time after
   # starving some random runnable task for 30-45s (systemd-udevd, ripgrep,
