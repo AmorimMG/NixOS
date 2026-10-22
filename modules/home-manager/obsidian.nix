@@ -4,7 +4,7 @@
   xdg.configFile."obsidian/themes/Midnight Marina/theme.css" = {
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/Muddyblack/midnight-marina-obsidian/master/midnight-marina.css";
-      hash = "sha256-b8w82GT7JbV0WuxscmgksTzHsutD/eelLYyQi2mgr/E=";
+      hash = "sha256-p+D4kbAkfLkDk5ZXk6KzuwipZjvAP81Izz0S3VXLzpk=";
     };
   };
 

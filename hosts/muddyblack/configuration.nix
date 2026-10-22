@@ -42,16 +42,23 @@
   features.ai.enable = true;
   features.ai.openWebui.enable = false;
   features.gaming.enable = true;
-  features.virt.enable = true;
+  #Desativando Virt até ser necesario
+  features.virt.enable = false;
   features.homepage.enable = true;
-  features.sops.enable = true;
+
+  #Desativando o SOPS até realmente precisar
+  features.sops.enable = false;
+  
 
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;
   };
   # features.stirling-pdf.enable = true;
-  features.firefly-iii.enable = true;
+
+  #Desativando o Firefly até precisar
+  features.firefly-iii.enable = false;
+
   features.paperless.enable = true;
   features.portmaster.enable = true;
   features.tailscale.enable = true;
