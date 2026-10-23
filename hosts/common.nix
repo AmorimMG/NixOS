@@ -136,7 +136,8 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    description = "Muddy Black";
+    uid = 1000;
+    description = "Amorim";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "docker" "video" "render" "input" "i2c"];
     shell = pkgs.zsh;
     # Install-time bootstrap only — ignored once the account exists, and

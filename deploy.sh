@@ -2,7 +2,7 @@
 set -euo pipefail
 
 FLAKE_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
-NIXOS_USER="${NIXOS_USER:-muddyblack}"
+NIXOS_USER="${NIXOS_USER:-amorim}"
 
 STATE_FILE="${FLAKE_DIR}/.deploy-state"
 SUCCESS_SOUND="${FLAKE_DIR}/assets/sounds/success.wav"

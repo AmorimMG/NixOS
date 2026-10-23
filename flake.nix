@@ -130,7 +130,7 @@
     impermanence,
     ...
   } @ inputs: let
-    username = "muddyblack";
+    username = "amorim";
 
     unstablePkgs = import nixpkgs-unstable {
       system = "x86_64-linux";

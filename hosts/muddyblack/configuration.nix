@@ -16,7 +16,7 @@
     # ../../modules/nixos/features/paperless.nix
     ../../modules/nixos/features/portmaster.nix
     ../../modules/nixos/features/tailscale.nix
-    # ../../modules/nixos/features/keyring.nix
+    ../../modules/nixos/features/keyring.nix
     # ../../modules/nixos/features/localsend.nix
     ../../modules/nixos/features/ai.nix
     ../../modules/nixos/features/spotifast.nix
@@ -65,8 +65,8 @@
   features.portmaster.enable = true;
   features.tailscale.enable = true;
   features.snapshots.enable = true;
-  #features.keyring.enable = true;
-  features.localsend.enable = true;
+  features.keyring.enable = true;
+  #features.localsend.enable = true;
   features.power.enable = true;
 
   security.wrappers.rustnet = {
