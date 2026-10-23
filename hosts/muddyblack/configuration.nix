@@ -12,12 +12,12 @@
     ../../modules/nixos/features/gaming.nix
     ../../modules/nixos/features/homepage.nix
     # sunsetting: ../../modules/nixos/features/stirling-pdf.nix (replaced by pdfcraft)
-    ../../modules/nixos/features/firefly-iii.nix
-    ../../modules/nixos/features/paperless.nix
+    # ../../modules/nixos/features/firefly-iii.nix
+    # ../../modules/nixos/features/paperless.nix
     ../../modules/nixos/features/portmaster.nix
     ../../modules/nixos/features/tailscale.nix
-    ../../modules/nixos/features/keyring.nix
-    ../../modules/nixos/features/localsend.nix
+    # ../../modules/nixos/features/keyring.nix
+    # ../../modules/nixos/features/localsend.nix
     ../../modules/nixos/features/ai.nix
     ../../modules/nixos/features/spotifast.nix
     ../../modules/nixos/features/zapfast.nix
@@ -59,14 +59,13 @@
   };
   # features.stirling-pdf.enable = true;
 
-  #Desativando o Firefly até precisar
-  features.firefly-iii.enable = false;
+  # features.firefly-iii.enable = true;
 
-  features.paperless.enable = true;
+  # features.paperless.enable = false;
   features.portmaster.enable = true;
   features.tailscale.enable = true;
   features.snapshots.enable = true;
-  features.keyring.enable = true;
+  #features.keyring.enable = true;
   features.localsend.enable = true;
   features.power.enable = true;
 
