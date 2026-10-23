@@ -75,6 +75,8 @@ in {
   firefly-iii-app = final.callPackage ./apps/firefly-iii-app.nix {};
   stirling-pdf-ui = final.callPackage ./apps/stirling-pdf.nix {};
   paperless-ngx-ui = final.callPackage ./apps/paperless.nix {};
+  skwd-wall = inputs.skwd-wall.packages.${final.stdenv.hostPlatform.system}.default;
+  skwd-wall-plasma = inputs.skwd-wall.packages.${final.stdenv.hostPlatform.system}.skwd-paper-plasma;
   craftApps = final.callPackage ./craft {};
   kdePackages = prev.kdePackages.overrideScope (_: kprev: {spectacle = final.callPackage ./apps/spectacle.nix {inherit (kprev) spectacle;};});
 

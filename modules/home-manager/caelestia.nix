@@ -46,7 +46,9 @@
       };
       background = {
         enabled = true;
-        wallpaperEnabled = true;
+        # The selected wallpaper engine owns the background layer (skwd-wall.nix).
+        wallpaperEnabled =
+          !(config.desktop.skwd-wall.enable);
         desktopClock = {
           # modern-clock-hyprland (hyprland.nix) replaces it when enabled.
           enabled = !config.desktop.widgets.modernClock.enable;

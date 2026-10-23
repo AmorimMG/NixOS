@@ -55,6 +55,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Prebuilt suite + NixOS module from the `nix` branch; no packaging here.
+    # nixpkgs follows so the binaries are patched against our own revision.
+    skwd-wall = {
+      url = "github:liixini/skwd-wall/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Only the home-manager module is used from here; the packages come from
     # nixpkgs-unstable (see the overlay below). quickshell is nulled out because
     # the flake would otherwise build it from git master - hours of clang, with

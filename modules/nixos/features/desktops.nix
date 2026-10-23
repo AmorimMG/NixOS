@@ -20,5 +20,18 @@
       default = true;
       description = "GNOME session";
     };
+    wallpaperEngine = lib.mkOption {
+      type = lib.types.enum [
+        "skwd"
+        "none"
+      ];
+      default = "skwd";
+      description = ''
+         Optional wallpaper engine for supported desktop sessions.
+         "skwd" enables the Skwd-wall integration.
+         "none" disables Skwd-wall and leaves wallpaper management
+         to the desktop environment's native implementation.
+      '';
+    };
   };
 }

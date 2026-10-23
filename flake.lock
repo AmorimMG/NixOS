@@ -517,6 +517,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "plasma-audio-visualizer": "plasma-audio-visualizer",
         "plasma-manager": "plasma-manager",
+        "skwd-wall": "skwd-wall",
         "sops-nix": "sops-nix",
         "spotifast": "spotifast",
         "tagesschau-widget": "tagesschau-widget",
@@ -563,6 +564,27 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "skwd-wall": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792102654,
+        "narHash": "sha256-dNISNxw7+ehLeaA+XBJzUjV24ik6Oibce6C0RxzzZns=",
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "rev": "d9142ad9e23bf33390e3fea38a5ce45a6fc286da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "ref": "nix",
+        "repo": "skwd-wall",
         "type": "github"
       }
     },

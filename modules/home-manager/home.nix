@@ -199,6 +199,7 @@
       ./steam.nix
       ./stremio.nix
       ./weather-patch.nix
+      ./skwd-wall.nix
     ]
     ++ lib.optional osConfig.features.desktops.hyprland.enable ./hyprland.nix
     ++ lib.optional osConfig.features.desktops.plasma.enable ./plasma-settings.nix
