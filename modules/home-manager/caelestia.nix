@@ -21,6 +21,29 @@
         showNetwork = true;
         showBluetooth = true;
       };
+      appearance = {
+        deformScale = 1.0;
+
+        rounding = {
+          scale = 1.15;
+        };
+
+        spacing = {
+          scale = 1.05;
+        };
+
+        padding = {
+          scale = 1.03;
+        };
+
+        anim.durations.scale = 1.05;
+
+        transparency = {
+          enabled = true;
+          base = 0.87;
+          layers = 0.4;
+        };
+      };
       background = {
         enabled = true;
         wallpaperEnabled = true;
@@ -29,14 +52,26 @@
           enabled = !config.desktop.widgets.modernClock.enable;
           position = "middle-center";
         };
+        visualiser = {
+          enabled = true;
+          autoHide = true;
+          blur = true;
+          rounding = 1;
+          spacing = 1;
+        };
       };
       dashboard = {
         enabled = true;
+        showDashboard = true;
+        showMedia = true;
         showWeather = true;
         showPerformance = true;
+
         performance = {
           showCpu = true;
+          showGpu = true;
           showMemory = true;
+          showStorage = true;
           showNetwork = true;
           showBattery = true;
         };

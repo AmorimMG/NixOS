@@ -31,7 +31,7 @@
         "/var/lib/sddm"
         "/var/lib/AccountsService"
         "/var/lib/private/ollama"
-        "/var/lib/open-webui"
+        "/var/lib/private/open-webui"
         "/var/lib/firefly-iii"
         "/var/lib/portmaster"
         "/var/lib/docker"

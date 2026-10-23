@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  lib,
   ...
 }: {
   imports = [
@@ -18,6 +19,8 @@
     ../../modules/nixos/features/keyring.nix
     ../../modules/nixos/features/localsend.nix
     ../../modules/nixos/features/ai.nix
+    ../../modules/nixos/features/spotifast.nix
+    ../../modules/nixos/features/zapfast.nix
   ];
 
   networking.hostName = "muddyblack";
@@ -40,16 +43,16 @@
   # it into hosts/deploy-config.nix, so setting it here too would collide.
 
   features.ai.enable = true;
-  features.ai.openWebui.enable = false;
+  features.ai.openWebui.enable = true;
   features.gaming.enable = true;
   #Desativando Virt até ser necesario
-  features.virt.enable = false;
+  features.virt.enable = true;
+  systemd.services.virt-secret-init-encryption.enable = lib.mkForce false;
   features.homepage.enable = true;
 
   #Desativando o SOPS até realmente precisar
   features.sops.enable = false;
   
-
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;

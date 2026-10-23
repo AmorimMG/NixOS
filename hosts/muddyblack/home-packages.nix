@@ -64,7 +64,6 @@
     google-chrome
     thunderbird
     bulwark-mail
-    whatsapp
     termius
 
     # Documents
@@ -158,6 +157,7 @@
 
     # Gaming & Simulation
     ckan
+    protonup-qt
 
     # Photography & RAW
     rapidraw

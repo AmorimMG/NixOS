@@ -35,6 +35,12 @@
     useGrub = config.bootloader == "grub";
     useSystemdBoot = config.bootloader == "systemd-boot";
   in {
+    # 1. Configura o console (TTY) com o nome correto do keymap
+    console.keyMap = 
+      if config.keyboardLayout == "br" then "br-abnt2"
+      else config.keyboardLayout;
+    # ====================================================
+
     hardware.i2c.enable = true;
     services.hardware.openrgb.enable = true;
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

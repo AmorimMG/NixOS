@@ -84,7 +84,7 @@ in {
   # Keyboard
   services.xserver.xkb = {
     layout = config.keyboardLayout;
-    variant = "";
+    variant = if config.keyboardLayout == "br" then "abnt2" else "";
   };
 
   # Touchpad

@@ -197,6 +197,7 @@
       ./obsidian.nix
       ./espanso.nix
       ./steam.nix
+      ./stremio.nix
       ./weather-patch.nix
     ]
     ++ lib.optional osConfig.features.desktops.hyprland.enable ./hyprland.nix

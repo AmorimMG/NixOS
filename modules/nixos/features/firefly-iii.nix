@@ -25,7 +25,7 @@ in {
         APP_ENV = "production";
         APP_URL = "http://localhost:${toString port}";
         TRUSTED_PROXIES = "*";
-        TZ = "Europe/Berlin";
+        TZ = "America/Sao_Paulo";
         SITE_OWNER = "muddyblack.original@gmail.com";
 
         # 32-byte app key (encrypts stored secrets); provisioned via sops.

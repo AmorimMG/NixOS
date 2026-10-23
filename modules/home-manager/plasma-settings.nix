@@ -327,6 +327,8 @@
               "applications:antigravity-ide.desktop"
               "applications:code.desktop"
               "applications:zen.desktop"
+              "applications:spotifast.desktop"
+              "applications:zapfast.desktop"
             ];
             appearance = {
               showTooltips = true;
@@ -519,7 +521,10 @@ in {
       # Plasma session came up US while console and Hyprland used keyboardLayout.
       kxkbrc.Layout.Use = true;
       kxkbrc.Layout.LayoutList = osConfig.keyboardLayout;
-      kxkbrc.Layout.VariantList = "";
+      kxkbrc.Layout.VariantList =
+        if osConfig.keyboardLayout == "br"
+        then "abnt2"
+        else "";
       kxkbrc.Layout.DisplayNames = "";
 
       krunnerrc.General.FreeFloating = true;

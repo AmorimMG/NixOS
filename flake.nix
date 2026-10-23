@@ -5,6 +5,10 @@
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
+    # Seus pacotes customizados do GitHub
+    spotifast.url = "github:crmne/spotifast";
+    zapfast.url = "github:crmne/zapfast";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
