@@ -72,6 +72,7 @@
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
+    "pt_BR.UTF-8/UTF-8"
   ];
 
   programs.nix-ld.enable = true;

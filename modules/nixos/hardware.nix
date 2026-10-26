@@ -20,8 +20,8 @@
     type = lib.types.str;
     example = "us";
     # Safety-net fallback only (used when no deploy-config.nix exists).
-    default = "de";
-    description = "xkb keyboard layout name (de, us, fr, ...) used by every session.";
+    default = "br";
+    description = "xkb keyboard layout name (de, us, fr, br, ...) used by every session.";
   };
 
   options.plymouthTheme = lib.mkOption {

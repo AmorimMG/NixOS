@@ -80,7 +80,7 @@ Options:
   --plymouth-theme <t> Plymouth boot theme (dotted, flower, icy, matrix) — prompted interactively if omitted
   --desktops <list>    Comma-separated desktop sessions to enable: hyprland,plasma,cosmic,gnome
                         — prompted interactively if omitted
-  --keyboard <layout>  xkb keyboard layout for every session (de, us, fr, ...)
+  --keyboard <layout>  xkb keyboard layout for every session (de, us, fr, br, ...)
                         — prompted interactively if omitted
 
 Examples:
@@ -161,7 +161,7 @@ write_deploy_config() {
   local theme="$4"
   local march="${5:-generic}"
   local desktops="${6:-hyprland,plasma,cosmic}"
-  local kb_layout="${7:-de}"
+  local kb_layout="${7:-br}"
   local out="$FLAKE_DIR/hosts/deploy-config.nix"
 
   if [[ ! "$device" =~ ^/dev/ ]]; then
@@ -183,7 +183,7 @@ write_deploy_config() {
   fi
 
   if [[ ! "$kb_layout" =~ ^[a-z][a-z0-9_-]*$ ]]; then
-    echo "Error: keyboard layout must be an xkb layout name like de, us, fr"
+    echo "Error: keyboard layout must be an xkb layout name like de, us, fr, br"
     exit 1
   fi
 
@@ -353,8 +353,8 @@ prompt_interactive_setup() {
   if [[ -z "$_kb_layout" ]]; then
     echo ""
     echo "Keyboard layout:"
-    local kb_names=(de us gb fr es it ch)
-    local kb_labels=("German" "US English" "UK English" "French (AZERTY)" "Spanish" "Italian" "Swiss")
+    local kb_names=(de us gb fr es it ch br)
+    local kb_labels=("German" "US English" "UK English" "French (AZERTY)" "Spanish" "Italian" "Swiss" "Portuguese Brazilian")
     for i in "${!kb_names[@]}"; do
       echo "  $((i+1))) ${kb_names[$i]}  — ${kb_labels[$i]}"
     done
@@ -366,12 +366,12 @@ prompt_interactive_setup() {
     elif [[ "$kb_choice" == "$(( ${#kb_names[@]} + 1 ))" ]]; then
       read -rp "  xkb layout name (see 'localectl list-x11-keymap-layouts'): " _kb_layout
       if [[ ! "$_kb_layout" =~ ^[a-z][a-z0-9_-]*$ ]]; then
-        echo "Invalid layout name, using de"
-        _kb_layout="de"
+        echo "Invalid layout name, using br"
+        _kb_layout="br"
       fi
     else
-      echo "Invalid choice, using de"
-      _kb_layout="de"
+      echo "Invalid choice, using br"
+      _kb_layout="br"
     fi
     # console.keyMap reuses this string; a handful of layouts spell their
     # console keymap differently. Warn rather than silently install a console

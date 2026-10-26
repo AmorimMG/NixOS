@@ -14,6 +14,7 @@
   shiftedNumberRows = {
     de = ["!" "\"" "§" "$" "%"];
     us = ["!" "@" "#" "$" "%"];
+    br = ["!" "\"" "#" "$" "%"];
   };
   shiftedDigits = shiftedNumberRows.${osConfig.keyboardLayout} or shiftedNumberRows.us;
 
@@ -327,6 +328,7 @@
               "applications:antigravity-ide.desktop"
               "applications:code.desktop"
               "applications:zen.desktop"
+              "applications:google-chrome.desktop"
               "applications:spotifast.desktop"
               "applications:zapfast.desktop"
             ];
@@ -599,7 +601,7 @@ in {
 
       # Locale
       plasma-localerc.Formats.LANG = "en_US.UTF-8";
-      plasma-localerc.Formats.LC_TIME = "de_DE.UTF-8";
+      plasma-localerc.Formats.LC_TIME = "pt_BR.UTF-8";
       plasma-localerc.Translations.LANGUAGE = "en_US";
 
       # Dolphin
