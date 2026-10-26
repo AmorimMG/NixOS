@@ -18,16 +18,15 @@
 
   home.packages = with pkgs; [
     # Media & Desktop
-    freetube
+    #freetube
     localsend
-    kdePackages.kdenlive
+    #kdePackages.kdenlive
 
     # Development & API tools
     # bruno
 
     # Wine/compatibility
     (pkgs.bottles.override {removeWarningPopup = true;})
-    pkgs.guitar-pro
 
     # File sync
     syncthing
@@ -63,15 +62,14 @@
     vesktop
     google-chrome
     thunderbird
-    bulwark-mail
     termius
 
     # Documents
     onlyoffice-desktopeditors
     obsidian
     portfolio
-    firefly-iii-app
-    paperless-ngx-ui
+    #firefly-iii-app
+    #paperless-ngx-ui
     # stirling-pdf-ui # sunsetting
     craftApps.pdfcraft
     craftApps.photocraft
@@ -137,13 +135,13 @@
     # rnnoise
 
     # Media & conversion
-    ffmpeg-full
-    imagemagick
-    upscayl
-    curtail
-    davinci-resolve
-    drwrap
-    mediainfo
+    #ffmpeg-full
+    #imagemagick
+    #upscayl
+    #curtail
+    #davinci-resolve
+    #drwrap
+    #mediainfo
 
     # Editors & IDEs
     google-antigravity
@@ -152,30 +150,22 @@
 
     # Recording & streaming
     obs-studio
-    audacity
-    soundconverter
+    #audacity
+    #soundconverter
 
     # Gaming & Simulation
-    ckan
     protonup-qt
 
     # Photography & RAW
-    rapidraw
+    #rapidraw
 
     # Design & creative
     # krita
-    blender
-    inkscape
+    #blender
+    #inkscape
     # lunacy
     eyedropper
     displaycal
     # f3d
-
-    (gimp-with-plugins.override {
-      plugins = with gimpPlugins; [
-        resynthesizer
-        gmic
-      ];
-    })
   ];
 }

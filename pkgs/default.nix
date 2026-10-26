@@ -70,8 +70,6 @@ in {
   portmaster = final.callPackage ./apps/portmaster.nix {};
   drwrap = final.callPackage ./drwrap.nix {};
   software-library = final.callPackage ./software-library.nix {};
-  guitar-pro = final.callPackage ./apps/guitar-pro.nix {};
-  bulwark-mail = final.callPackage ./apps/bulwark-mail.nix {};
   firefly-iii-app = final.callPackage ./apps/firefly-iii-app.nix {};
   stirling-pdf-ui = final.callPackage ./apps/stirling-pdf.nix {};
   paperless-ngx-ui = final.callPackage ./apps/paperless.nix {};

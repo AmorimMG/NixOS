@@ -45,7 +45,6 @@
   features.ai.enable = true;
   features.ai.openWebui.enable = true;
   features.gaming.enable = true;
-  #Desativando Virt até ser necesario
   features.virt.enable = true;
   systemd.services.virt-secret-init-encryption.enable = lib.mkForce false;
   features.homepage.enable = true;
@@ -86,6 +85,5 @@
   # Additional home-manager packages and config for the full profile
   home-manager.users.${username} = {
     imports = [./home-packages.nix];
-    programs.gimp-photogim.enable = true;
   };
 }
