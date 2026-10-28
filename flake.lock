@@ -520,7 +520,6 @@
         "skwd-wall": "skwd-wall",
         "sops-nix": "sops-nix",
         "spotifast": "spotifast",
-        "tagesschau-widget": "tagesschau-widget",
         "zapfast": "zapfast",
         "zen-browser": "zen-browser"
       }
@@ -614,11 +613,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1792616823,
-        "narHash": "sha256-wWWpPxhuJh5RjwKWuPJ07MRjx5SDh1+z+UZI3yK2Qgc=",
+        "lastModified": 1793114507,
+        "narHash": "sha256-iZad15EZOWhrmCTmCJxiIMh+wsEeOMCdvdafa109gcI=",
         "owner": "crmne",
         "repo": "spotifast",
-        "rev": "19b74431279ce891ce2c53f5c835261f630a7d89",
+        "rev": "ab29f20a52026a9167bfefd37a77fbaa1465d06b",
         "type": "github"
       },
       "original": {
@@ -639,26 +638,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "tagesschau-widget": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1789901208,
-        "narHash": "sha256-7Xl8Qj5Wyj5m/4nzwJM2B3XeLc4KrWcggbGBzDn8Nys=",
-        "owner": "Muddyblack",
-        "repo": "kde-tagesschau-rss-widget",
-        "rev": "f4096af04546fe8f50eceab815d816da443dd3d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Muddyblack",
-        "repo": "kde-tagesschau-rss-widget",
         "type": "github"
       }
     },
@@ -683,20 +662,23 @@
     },
     "zen-browser": {
       "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1791627880,
-        "narHash": "sha256-qpJE5ug1T+7LEdXRLI9/ZIwe/rzqjILR9BpMg/sNVtM=",
-        "owner": "youwen5",
+        "lastModified": 1792963762,
+        "narHash": "sha256-ThRNX0+T2Gb3ZD0Xf+/R3wJdL93/mW80ubMnLjZelTY=",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "458cd16116c362a5e92d5db6bdc3599e4e8b1f4a",
+        "rev": "ed68d814d6cf2e221ba43d84f1e32429f5e2786f",
         "type": "github"
       },
       "original": {
-        "owner": "youwen5",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
         "type": "github"
       }

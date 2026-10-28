@@ -30,10 +30,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
+    
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # Without the follows, impermanence dragged in its own nixpkgs (locked
@@ -88,11 +91,6 @@
 
     nixdatifier = {
       url = "github:Muddyblack/nixdatifier";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    tagesschau-widget = {
-      url = "github:Muddyblack/kde-tagesschau-rss-widget";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
