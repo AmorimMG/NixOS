@@ -86,4 +86,13 @@
   home-manager.users.${username} = {
     imports = [./home-packages.nix];
   };
+
+  # Montagem do HD secundário para Jogos
+  fileSystems."/mnt/Jogos" = {
+    device = "/dev/disk/by-uuid/29ed971b-6608-40b0-b491-919ed29b95bd";
+    fsType = "ext4";
+    # O nofail garante que se um dia o HD queimar ou for desconectado, 
+    # o seu NixOS vai ligar normalmente ignorando a ausência dele.
+    options = [ "nofail" "x-systemd.device-timeout=5s" ]; 
+  };
 }
