@@ -49,6 +49,7 @@
     serie
     gource
     devenv
+    dbeaver-bin
 
     # File management
     czkawka
@@ -127,6 +128,7 @@
     veracrypt
 
     # Audio & music
+    feishin
     # easyeffects
     # calf
     # lsp-plugins
