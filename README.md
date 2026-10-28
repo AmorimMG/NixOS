@@ -93,13 +93,6 @@ In the first few weeks, I managed to like break the system three times a day and
   <img src="docs/readme/gitpulse_inbox.svg" alt="GitPulse inbox" width="440" valign="middle"/>
 </p>
 
-**Tagesschau**
-<p align="center">
-  <img src="docs/readme/tagesschau_panel.svg" alt="Tagesschau panel" width="128" valign="middle"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="docs/readme/tagesschau.svg" alt="Tagesschau widget" width="360" valign="middle"/>
-</p>
-
 **Advanced Weather**
 <img src="docs/readme/weather_widget.png" width="100%" alt="Advanced Weather Widget" />
 
@@ -150,7 +143,7 @@ In the first few weeks, I managed to like break the system three times a day and
 | **Shell** | Zsh · Powerlevel10k |
 | **Terminal** | Ghostty |
 | **Bar** | Caelestia Shell |
-| **Widgets** | Glassy System Monitor · AI Usage · Nixdatifier · GitPulse · Tagesschau · Plasma Audio Visualizer · Advanced Weather · Powerchart |
+| **Widgets** | Glassy System Monitor · AI Usage · Nixdatifier · GitPulse · Plasma Audio Visualizer · Advanced Weather · Powerchart |
 | **Browser** | Zen Browser |
 | **Editor** | Neovim (LazyVim) · Antigravity · Zed |
 | **File Manager** | Yazi · Dolphin |
@@ -503,7 +496,6 @@ Our environment features a suite of highly-polished custom and third-party widge
 - **[AI Usage Widget](https://github.com/Muddyblack/ai-usage-widget)** — Track your Claude Code session and weekly API token usage directly on the panel.
 - **[Nixdatifier](https://github.com/Muddyblack/nixdatifier)** — Tray app (also a Plasma widget and Quickshell panel) for NixOS generations, package diffs, flake updates and dev environments.
 - **[GitPulse](https://github.com/Muddyblack/kde-gitpulse)** — GitHub activity, notifications, profile stats & Copilot usage monitoring widget for KDE Plasma.
-- **[Tagesschau](https://github.com/Muddyblack/kde-tagesschau-rss-widget)** — News and finance feeds in a panel widget.
 - **[Plasma Audio Visualizer](https://github.com/Muddyblack/audio-wave-visualizer)** — Smooth, GPU-friendly visualizer powered by `cava` to show audio waveform feedback.
 - **[Advanced Weather Widget](https://github.com/pnedyalkov91/advanced-weather-widget)** — Advanced weather forecast widget with radar and detailed popup tracking.
 - **[Powerchart Widget](https://github.com/jboero/kde-plasmoid-powerchart)** — Real-time power consumption and battery statistics graphing.

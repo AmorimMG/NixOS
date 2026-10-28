@@ -16,13 +16,61 @@
   <link rel="icon" type="image/svg+xml"
     href="https://raw.githubusercontent.com/Muddyblack/NixOS/master/assets/icons/nix_icon.svg" />
   <style>
-    @font-face { font-family: 'JetBrains Mono'; src: url('fonts/JetBrainsMono-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'JetBrains Mono'; src: url('fonts/JetBrainsMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'JetBrains Mono'; src: url('fonts/JetBrainsMono-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'Inter'; src: url('fonts/Inter-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'Inter'; src: url('fonts/Inter-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'Inter'; src: url('fonts/Inter-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'Inter'; src: url('fonts/Inter-Black.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/Inter-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/Inter-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/Inter-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/Inter-Black.woff2') format('woff2');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
   </style>
   <style>
     :root {
@@ -737,7 +785,7 @@
         <a href="#boot">Boot</a>
         <a href="#tools">Tools</a>
         <a href="#install">Install</a>
-<a href="https://github.com/Muddyblack/NixOS">GitHub →</a>
+        <a href="https://github.com/Muddyblack/NixOS">GitHub →</a>
       </div>
     </div>
   </nav>
@@ -747,8 +795,7 @@
     <div class="hero-bg"></div>
     <div class="hero-inner">
       <div class="hero-badge">
-        <img class="hero-icon"
-          src="readme/nix_icon_animated.svg" alt="NixOS" />
+        <img class="hero-icon" src="readme/nix_icon_animated.svg" alt="NixOS" />
         <span id="nixos-ver">NixOS</span> · Flakes · Home Manager · Disko
       </div>
       <h1>A reproducible<br /><span class="grad-text">NixOS rice</span><br />built to last.</h1>
@@ -864,39 +911,29 @@
       </div>
       <div class="shots">
         <div class="shot glass reveal">
-          <img loading="lazy"
-            src="readme/kde-desktop.png"
-            alt="KDE Plasma 6 desktop" />
+          <img loading="lazy" src="readme/kde-desktop.png" alt="KDE Plasma 6 desktop" />
           <div class="cap"><i class="dot"></i>KDE Plasma 6 <span>— Sweet Dark · custom widgets · Iridescent theme</span>
           </div>
         </div>
         <div class="shot glass reveal">
-          <img loading="lazy"
-            src="readme/hyprland-desktop.png"
-            alt="Hyprland desktop" />
+          <img loading="lazy" src="readme/hyprland-desktop.png" alt="Hyprland desktop" />
           <div class="cap"><i class="dot"></i>Hyprland <span>— Caelestia Shell bar · awww wallpapers</span></div>
         </div>
         <div class="shot glass reveal">
-          <img loading="lazy"
-            src="readme/cosmic-desktop.png"
-            alt="COSMIC desktop" />
+          <img loading="lazy" src="readme/cosmic-desktop.png" alt="COSMIC desktop" />
           <div class="cap"><i class="dot"></i>COSMIC</div>
         </div>
         <div class="shot glass reveal">
-          <img loading="lazy"
-            src="readme/gnome-desktop.png"
-            alt="GNOME desktop" />
+          <img loading="lazy" src="readme/gnome-desktop.png" alt="GNOME desktop" />
           <div class="cap"><i class="dot"></i>GNOME</div>
         </div>
         <div class="bootloader-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div class="shot glass reveal">
-            <img loading="lazy" src="readme/grub.png"
-              alt="Custom GRUB2 theme" />
+            <img loading="lazy" src="readme/grub.png" alt="Custom GRUB2 theme" />
             <div class="cap"><i class="dot"></i>GRUB2 <span>— themed bootloader</span></div>
           </div>
           <div class="shot glass reveal">
-            <img loading="lazy" src="readme/refind.png"
-              alt="Custom rEFInd theme" />
+            <img loading="lazy" src="readme/refind.png" alt="Custom rEFInd theme" />
             <div class="cap"><i class="dot"></i>rEFInd <span>— alternate bootloader</span></div>
           </div>
         </div>
@@ -975,8 +1012,7 @@
       </div>
       <div class="gallery">
         <div class="widget glass span2 reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/glassy_dashboard.png"
+          <div class="frame"><img loading="lazy" src="readme/glassy_dashboard.png"
               alt="Glassy System Monitor dashboard" /></div>
           <div class="meta">
             <h3>Glassy System Monitor <span class="tag">dashboard</span></h3>
@@ -984,8 +1020,7 @@
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/nixdatifier_timeline.svg"
+          <div class="frame"><img loading="lazy" src="readme/nixdatifier_timeline.svg"
               alt="Nixdatifier generations timeline" /></div>
           <div class="meta">
             <h3>Nixdatifier <span class="tag">animated</span></h3>
@@ -993,63 +1028,43 @@
           </div>
         </div>
         <div class="widget glass span2 reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/audio_visualizer.svg"
-              alt="Plasma Audio Visualizer" /></div>
+          <div class="frame"><img loading="lazy" src="readme/audio_visualizer.svg" alt="Plasma Audio Visualizer" />
+          </div>
           <div class="meta">
             <h3>Plasma Audio Visualizer <span class="tag">animated</span></h3>
             <p>Album art + reactive bars/dots/lines that sweep to the beat.</p>
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/gitpulse_inbox.svg"
-              alt="GitPulse inbox" /></div>
+          <div class="frame"><img loading="lazy" src="readme/gitpulse_inbox.svg" alt="GitPulse inbox" /></div>
           <div class="meta">
             <h3>GitPulse <span class="tag">GitHub</span></h3>
             <p>GitHub activity, notifications, profile stats &amp; Copilot usage on your desktop.</p>
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/ai_usage.svg"
-              alt="AI Usage widget" /></div>
+          <div class="frame"><img loading="lazy" src="readme/ai_usage.svg" alt="AI Usage widget" /></div>
           <div class="meta">
             <h3>AI Usage <span class="tag">Claude Code</span></h3>
             <p>Live token &amp; cost tracking for Claude Code sessions.</p>
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame tall"><img loading="lazy"
-              src="readme/ai_usage_chart.svg"
-              alt="AI Usage chart" /></div>
+          <div class="frame tall"><img loading="lazy" src="readme/ai_usage_chart.svg" alt="AI Usage chart" /></div>
           <div class="meta">
             <h3>AI Usage — Chart</h3>
             <p>Daily usage history as a clean spend graph.</p>
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame tall"><img loading="lazy"
-              src="readme/tagesschau.svg"
-              alt="Tagesschau" /></div>
-          <div class="meta">
-            <h3>Tagesschau <span class="tag">animated</span></h3>
-            <p>German public-broadcaster news headlines on the desktop.</p>
-          </div>
-        </div>
-        <div class="widget glass reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/weather_widget.png"
-              alt="Advanced Weather" /></div>
+          <div class="frame"><img loading="lazy" src="readme/weather_widget.png" alt="Advanced Weather" /></div>
           <div class="meta">
             <h3>Advanced Weather</h3>
             <p>Forecast, conditions &amp; trends with a rich popup layout.</p>
           </div>
         </div>
         <div class="widget glass reveal">
-          <div class="frame"><img loading="lazy"
-              src="readme/battery_widget.png"
-              alt="Powerchart" /></div>
+          <div class="frame"><img loading="lazy" src="readme/battery_widget.png" alt="Powerchart" /></div>
           <div class="meta">
             <h3>Powerchart</h3>
             <p>Battery level &amp; power-consumption history graph.</p>
@@ -1079,14 +1094,16 @@
             <div style="font-size:12px;color:var(--muted)">VMware · KVM/libvirt · Docker</div>
           </div>
         </div>
-        <a class="tool glass reveal" href="https://tailscale.com" target="_blank" rel="noopener" style="text-decoration:none">
+        <a class="tool glass reveal" href="https://tailscale.com" target="_blank" rel="noopener"
+          style="text-decoration:none">
           <span style="font-size:18px">🌐</span>
           <div>
             <div style="font-weight:700;color:var(--text)">Tailscale</div>
             <div style="font-size:12px;color:var(--muted)">Mesh VPN, routed through kernel</div>
           </div>
         </a>
-        <a class="tool glass reveal" href="https://gethomepage.dev" target="_blank" rel="noopener" style="text-decoration:none">
+        <a class="tool glass reveal" href="https://gethomepage.dev" target="_blank" rel="noopener"
+          style="text-decoration:none">
           <span style="font-size:18px">🏠</span>
           <div>
             <div style="font-weight:700;color:var(--text)">Homepage</div>
@@ -1255,7 +1272,7 @@ upnix</pre>
     </div>
   </section>
 
-<!-- ── FOOTER ── -->
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="wrap">
       <p>Built with <span class="heart">♥</span> on NixOS ·

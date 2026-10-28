@@ -24,7 +24,6 @@ in {
   # Upstream also exports a standalone Hyprland/Quickshell panel package.
   nixdatifier-hyprland = inputs.nixdatifier.packages.${final.stdenv.hostPlatform.system}.hyprland;
   glassy-system-monitor = upstreamWidget inputs.glassy-system-monitor;
-  tagesschau-widget = upstreamWidget inputs.tagesschau-widget;
   plasma-audio-visualizer = upstreamWidget inputs.plasma-audio-visualizer;
   audio-visualizer-hyprland = final.callPackage ./widgets/audio-visualizer-hyprland.nix {
     audioVisualizerSrc = inputs.plasma-audio-visualizer;

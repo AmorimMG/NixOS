@@ -19,7 +19,6 @@ in {
     overview.enable = lib.mkEnableOption "KDE Overview widget" // {default = true;};
     weather.enable = lib.mkEnableOption "Advanced Weather widget" // {default = true;};
     aiUsage.enable = lib.mkEnableOption "AI Usage monitor widget" // {default = true;};
-    tagesschau.enable = lib.mkEnableOption "Tagesschau news widget" // {default = true;};
     nixosGenerationExplorer.enable = lib.mkEnableOption "NixOS Generation Explorer widget" // {default = true;};
     gitpulse.enable = lib.mkEnableOption "GitPulse GitHub activity widget" // {default = true;};
   };
@@ -37,7 +36,6 @@ in {
       ++ (lib.optional cfg.modernClock.enable pkgs.kde-modern-clock)
       ++ (lib.optional cfg.overview.enable pkgs.kde-overview-widget)
       ++ (lib.optional cfg.plasmaAudioVisualizer.enable pkgs.plasma-audio-visualizer)
-      ++ (lib.optional cfg.tagesschau.enable pkgs.tagesschau-widget)
       ++ (lib.optional cfg.aiUsage.enable pkgs.ai-usage-widget)
       ++ (lib.optional cfg.weather.enable pkgs.advanced-weather-widget)
       ++ (lib.optional cfg.nixosGenerationExplorer.enable pkgs.nixdatifier)
@@ -77,12 +75,6 @@ in {
       // (lib.optionalAttrs cfg.aiUsage.enable {
         "plasma/plasmoids/org.muddyblack.aiUsageWidget" = {
           source = "${pkgs.ai-usage-widget}/share/plasma/plasmoids/org.muddyblack.aiUsageWidget";
-          force = true;
-        };
-      })
-      // (lib.optionalAttrs cfg.tagesschau.enable {
-        "plasma/plasmoids/org.muddyblack.tagesschauWidget" = {
-          source = "${pkgs.tagesschau-widget}/share/plasma/plasmoids/org.muddyblack.tagesschauWidget";
           force = true;
         };
       })

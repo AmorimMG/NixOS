@@ -264,9 +264,6 @@
         name = "org.muddyblack.gitpulse";
         config.General.useGhCli = "true";
       })
-      ++ (lib.optional cfg.tagesschau.enable {
-        name = "org.muddyblack.tagesschauWidget";
-      })
       ++ [
         {
           systemTray = {
