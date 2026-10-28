@@ -108,6 +108,11 @@ in {
       # checking `hyprctl monitors` for what it actually chose.
       monitor = [",preferred,auto,1"];
 
+      # Configuração de monitores por computador
+      source = [
+        "~/.config/hypr/monitors.conf"
+      ];
+
       exec-once =
         [
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_MENU_PREFIX"
@@ -332,7 +337,7 @@ in {
         "$mod, MINUS, togglespecialworkspace, magic"
         "$mod SHIFT, MINUS, movetoworkspacesilent, special:magic"
         # Move window out of special/magic back to the current regular workspace
-        "$mod, plus, movetoworkspace, e+0"
+        "$mod, equal, movetoworkspace, e+0"
       ];
 
       binde = [
