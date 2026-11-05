@@ -127,6 +127,8 @@ in {
           "env NIXPKGS_QT6_QML_IMPORT_PATH=${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml ${pkgs.ai-usage-hyprland}/bin/ai-usage-hyprland"
           "${pkgs.gitpulse-hyprland}/bin/gitpulse-hyprland"
           "env NIXPKGS_QT6_QML_IMPORT_PATH=${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml ${pkgs.nixdatifier-hyprland}/bin/nixdatifier-hyprland"
+          # alt tab application
+          "snappy-switcher --daemon"
         ]
         ++ lib.optional ibusEnabled "${osConfig.i18n.inputMethod.package}/bin/ibus start --type wayland"
         # Same desktop widgets as the Plasma session (plasma-settings.nix).
@@ -338,6 +340,8 @@ in {
         "$mod SHIFT, MINUS, movetoworkspacesilent, special:magic"
         # Move window out of special/magic back to the current regular workspace
         "$mod, equal, movetoworkspace, e+0"
+
+        "ALT, TAB, exec, snappy-switcher next --mod alt"
       ];
 
       binde = [

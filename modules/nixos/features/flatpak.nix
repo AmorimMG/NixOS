@@ -32,6 +32,7 @@
       packages = [
         "com.github.tchx84.Flatseal" # per-app permission editor
         #com.discordapp.Discord" # chat client (replaces the native pkg)
+        "org.vinegarhq.Sober"
       ];
       # nix-flatpak defaults the Flathub remote already; listed explicitly so
       # the source of these appIDs is obvious.

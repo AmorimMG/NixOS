@@ -103,6 +103,7 @@
     podman-tui
     dive
     lazydocker
+    colmena
     kubectl
 
     # Backup & monitoring

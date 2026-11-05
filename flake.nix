@@ -9,6 +9,11 @@
     spotifast.url = "github:crmne/spotifast";
     zapfast.url = "github:crmne/zapfast";
 
+    snappy-switcher = {
+      url = "github:OpalAayan/snappy-switcher";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

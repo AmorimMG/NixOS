@@ -171,7 +171,7 @@
       ./vscode.nix
       ./vscode-forks.nix
       ./ghostty.nix
-      ./zen.nix
+      ./zen-browser
       ./neovim.nix
       ./git.nix
       ./obsidian.nix

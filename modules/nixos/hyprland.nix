@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 lib.mkIf config.features.desktops.hyprland.enable {
@@ -12,6 +13,7 @@ lib.mkIf config.features.desktops.hyprland.enable {
   };
 
   xdg.portal = {
+    enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
       pkgs.kdePackages.xdg-desktop-portal-kde
@@ -41,6 +43,7 @@ lib.mkIf config.features.desktops.hyprland.enable {
     # rendering as an unthemed GTK window. Started from exec-once in
     # modules/home-manager/hyprland.nix.
     hyprpolkitagent
+    inputs.snappy-switcher.packages.${pkgs.system}.default
   ];
 
   services.gnome.gnome-keyring.enable = true;

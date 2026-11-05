@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   username,
@@ -102,7 +103,6 @@
           ".steam"
           ".vmware"
           ".wine"
-          ".zen"
           "thunderbird"
           ".claude"
           ".gemini"
@@ -135,6 +135,13 @@
     };
 
     environment.etc."nixos".source = "/mnt/projects/nixos-config";
+
+    system.activationScripts.cleanupLegacyZenDir = ''
+      if ${pkgs.util-linux}/bin/mountpoint -q "/home/${username}/.zen"; then
+        ${pkgs.util-linux}/bin/umount -l "/home/${username}/.zen" || true
+      fi
+      rm -rf "/home/${username}/.zen"
+    '';
 
     # Required for impermanence to work correctly with sudo
     security.sudo.extraConfig = "Defaults lecture=never";
