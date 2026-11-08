@@ -24,6 +24,9 @@
         protontricks
         steamtinkerlaunch
       ];
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
     };
 
     environment.systemPackages = with pkgs; [

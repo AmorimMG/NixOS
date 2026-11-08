@@ -24,7 +24,7 @@
   "media.eme.enabled" = true;
   "media.videocontrols.picture-in-picture.video-toggle.has-used" = true;
   "middlemouse.paste" = false;
-  "network.trr.mode" = 1;
+  "network.trr.mode" = 5;
   "permissions.default.desktop-notification" = 2;
   "privacy.userContext.enabled" = true;
   "privacy.userContext.ui.enabled" = true;

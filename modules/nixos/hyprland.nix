@@ -18,8 +18,13 @@ lib.mkIf config.features.desktops.hyprland.enable {
       pkgs.xdg-desktop-portal-hyprland
       pkgs.kdePackages.xdg-desktop-portal-kde
     ];
-    config.hyprland.default = ["kde" "hyprland" "gtk"];
-    config.hyprland."org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+    config.hyprland = {
+      default = ["hyprland" "kde" "gtk"];
+      "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+      "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
+      "org.freedesktop.impl.portal.GlobalShortcuts" = ["hyprland"];
+      "org.freedesktop.impl.portal.Settings" = ["kde" "gtk"];
+    };
   };
 
   security.pam.services.hyprlock = {};

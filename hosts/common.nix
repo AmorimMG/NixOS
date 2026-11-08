@@ -172,6 +172,8 @@
     wl-clipboard
     xclip
     ntfs3g
+    qemu
+    libvirt
 
     sonomatic-sddm
     sweet-theme

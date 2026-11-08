@@ -21,11 +21,11 @@
         "/var/log"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
-        # systemd stamps the last-run time of Persistent=true timers here.
-        # Without it every persistent timer (btrbk, fstrim, fwupd-refresh)
-        # believes it has never run and fires once on every boot.
-        "/var/lib/systemd/timers"
+
+        # Persist systemd state, including timer timestamps, coredumps
+        # and the credential.secret used by systemd-creds/libvirt.
+        "/var/lib/systemd"
+
         "/etc/NetworkManager/system-connections"
         "/var/lib/upower"
         "/var/lib/sops-nix"
@@ -37,28 +37,34 @@
         "/var/lib/portmaster"
         "/var/lib/docker"
         "/var/lib/containers"
-        # Node identity + auth state. Without this the machine drops out of the
-        # tailnet and needs a fresh `tailscale up` login after every boot.
+
+        # Node identity + auth state.
         "/var/lib/tailscale"
+
         # VM definitions, NVRAM and storage pools for libvirtd.
         "/var/lib/libvirt"
-        # services.vnstat's traffic database — the whole point of the service is
-        # a long-running history, which a wipe on every boot makes impossible.
+
+        # vnstat traffic database.
         "/var/lib/vnstat"
+
         # Configured printers/queues.
         "/var/lib/cups"
-        # Stirling-PDF's settings and per-user data. Under /var/lib/private
-        # because the service runs with DynamicUser, so systemd puts the
-        # StateDirectory there and symlinks /var/lib/stirling-pdf at it.
+
+        # Stirling-PDF settings and per-user data.
         "/var/lib/private/stirling-pdf"
-        # Device firmware cache and per-device update history.
+
+        # Device firmware cache and update history.
         "/var/lib/fwupd"
-        # Remembers the profile (performance/balanced/power-saver) per power state.
+
+        # Power profile state.
         "/var/lib/power-profiles-daemon"
-        # Ban database — a reboot otherwise clears every active ban.
+
+        # Fail2ban database.
         "/var/lib/fail2ban"
-        # btrbk's transaction log; keeps its view of snapshot lineage consistent.
+
+        # btrbk transaction log.
         "/var/lib/btrbk"
+
         {
           directory = "/var/lib/colord";
           user = "colord";
@@ -66,21 +72,20 @@
           mode = "u=rwx,g=rx,o=rx";
         }
       ];
+
       files = [
-        # systemd's local credential key. libvirt's secrets-encryption-key under
-        # /var/lib/libvirt is persisted and encrypted against this key, so wiping
-        # it on boot leaves a blob nothing can decrypt and libvirtd.service dies
-        # at step CREDENTIALS (status=243).
-        "/var/lib/systemd/credential.secret"
         "/etc/machine-id"
         "/etc/adjtime"
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
         "/etc/ssh/ssh_host_ed25519_key"
         "/etc/ssh/ssh_host_ed25519_key.pub"
+
         {
           file = "/etc/nix/id_rsa";
-          parentDirectory = {mode = "u=rwx,g=rx,o=rx";};
+          parentDirectory = {
+            mode = "u=rwx,g=rx,o=rx";
+          };
         }
       ];
       users.${username} = {

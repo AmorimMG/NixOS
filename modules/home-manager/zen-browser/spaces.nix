@@ -81,6 +81,7 @@ in {
       url = "https://instagram.com/";
       workspace = spaceIds.pessoal;
       container = containerIds.pessoal;
+      isEssential = true;
       position = 103;
     };
     "X" = {
@@ -88,6 +89,7 @@ in {
       url = "https://x.com";
       workspace = spaceIds.pessoal;
       container = containerIds.pessoal;
+      isEssential = true;
       position = 104;
     };
     "Homepage Local" = {
@@ -102,6 +104,7 @@ in {
       url = "https://start.amorim.pro/";
       workspace = spaceIds.pessoal;
       container = containerIds.pessoal;
+      isEssential = true;
       position = 106;
     };
     "Vaultwarden" = {
